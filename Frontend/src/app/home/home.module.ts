@@ -8,6 +8,7 @@ import {HomeComponent} from './home/home.component';
 import {HomeRoutingModule } from './home-routing.module';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     CommonModule,
     HomeRoutingModule,
     AgmCoreModule,
+    MatToolbarModule
   ],
 
   exports: [],
