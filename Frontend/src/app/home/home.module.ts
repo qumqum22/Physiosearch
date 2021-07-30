@@ -9,13 +9,17 @@ import {HomeRoutingModule } from './home-routing.module';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NavigationBarComponent],
+    NavigationBarComponent,
+    ProfileComponent,
+    SettingsComponent],
   imports: [ 
     CommonModule,
     HomeRoutingModule,
