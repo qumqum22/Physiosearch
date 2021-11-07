@@ -1,9 +1,11 @@
 package com.rehabilitation.demo.services;
 
 import com.rehabilitation.demo.models.Address;
+import com.rehabilitation.demo.models.UserAccount;
 import com.rehabilitation.demo.models.UserData;
-import com.rehabilitation.demo.payload.RegisterUserRequest;
+import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
+import com.rehabilitation.demo.repository.UserAccountRepository;
 import com.rehabilitation.demo.repository.UserDataRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,13 @@ import java.util.List;
 public class UserService {
 
     private final UserDataRepository userDataRepository;
+    private final UserAccountRepository userAccountRepository;
 
-    public UserService(UserDataRepository userDataRepository) {
+    public UserService(UserDataRepository userDataRepository, UserAccountRepository userAccountRepository) {
         this.userDataRepository = userDataRepository;
+        this.userAccountRepository = userAccountRepository;
     }
+
 
     public List<UserData> getUsers() {
         return userDataRepository.findAll();
@@ -31,29 +36,35 @@ public class UserService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-
-    public boolean save(RegisterUserRequest registerUserRequest) {
-        if(!registerUserRequest.getEmail().contains("@"))
+    public boolean save(RegisterUserAccountRequest registerUserAccountRequest) {
+        if(!registerUserAccountRequest.getEmail().contains("@"))
             return false;
-        if(!registerUserRequest.getEmail().contains("."))
+        if(!registerUserAccountRequest.getEmail().contains("."))
             return false;
-        if(registerUserRequest.getPassword().length() < 6) {
+        if(registerUserAccountRequest.getPassword().length() < 6) {
             return false;
         }
         UserData newUserData = new UserData(
-                registerUserRequest.getName(),
-                registerUserRequest.getSurname(),
-                null,
                 "",
-                "Default description",
+                registerUserAccountRequest.getName(),
+                registerUserAccountRequest.getSurname(),
                 null,
                 null,
                 null,
-                registerUserRequest.getPassword(),
-                registerUserRequest.getEmail());
+                "Default description");
+
+        UserAccount userAccount = new UserAccount(
+                registerUserAccountRequest.getEmail(),
+                registerUserAccountRequest.getPassword(),
+                "salt",
+                "seed",
+                newUserData);
+
         this.userDataRepository.save(newUserData);
+        this.userAccountRepository.save(userAccount);
         return true;
     }
+
 
     public boolean updateProfile(long id, UpdateUserRequest oldUserData) {
         UserData updatedUser = userDataRepository.findUserDataById(id);
@@ -62,7 +73,7 @@ public class UserService {
         //updatedUser.setProfileImage(oldUserData.getProfileImage());
         updatedUser.setTitle(oldUserData.getTitle());
         updatedUser.setDescription(oldUserData.getDescription());
-        //updatedUser.setAge(oldUserData.getAge());
+        // updatedUser.setAge(oldUserData.getAge());
         //updatedUser.setGender(oldUserData.getGender());
         userDataRepository.save(updatedUser);
     return true;

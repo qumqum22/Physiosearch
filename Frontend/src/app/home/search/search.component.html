@@ -1,0 +1,185 @@
+<div class ="searchbar">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Rodzaj rehabilitacji</mat-label>
+            <mat-select [formControl]="toppings" multiple>
+              <mat-select-trigger>
+                {{toppings.value ? toppings.value[0] : ''}}
+                <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+                  (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let dziedzina of rodzajeRehabilitacji" [value]="dziedzina">{{dziedzina}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Miasto</mat-label>
+            <mat-select [formControl]="toppings" multiple>
+              <mat-select-trigger>
+                {{toppings.value ? toppings.value[0] : ''}}
+                <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+                  (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let miasto of miasta" [value]="miasto">{{miasto}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+</div>
+
+<div class ="cards" >
+    <!-- <div class="card" *ngFor="let user of users">
+        <img *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
+        <img *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+        <h2>{{user.title}} {{user.name}} {{user.surname}}</h2>
+        <h2>{{user.email}}</h2>
+        <h3>{{user.description}}</h3>
+        <button class="yellowButton" (click)="onSelect(user)" > Visit me  </button>
+    </div> -->
+    <div class="card" *ngFor="let user of usersForArray">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
+            <h2>{{user.title}} {{user.name}} {{user.surname}}</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: {{user.getOfficeHours().getMonday().getStart()}} - {{user.getOfficeHours().getMonday().getEnd()}}</h3>
+            <h3>Wtorek: {{user.getOfficeHours().getTuesday().getStart()}} - {{user.getOfficeHours().getTuesday().getEnd()}}</h3>
+            <h3>Środa: {{user.getOfficeHours().getWednesday().getStart()}} - {{user.getOfficeHours().getWednesday().getEnd()}}</h3>
+            <h3>Czwartek: {{user.getOfficeHours().getThursday().getStart()}} - {{user.getOfficeHours().getThursday().getEnd()}}</h3>
+            <h3>Piątek: {{user.getOfficeHours().getFriday().getStart()}} - {{user.getOfficeHours().getFriday().getEnd()}}</h3>
+            <h3>Sobota: {{user.getOfficeHours().getSaturday().getStart()}} - {{user.getOfficeHours().getSaturday().getEnd()}} </h3>
+            <h3>Niedziela: {{user.getOfficeHours().getSunday().getStart()}} - {{user.getOfficeHours().getSunday().getEnd()}} </h3>
+        </div>
+    </div>
+
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
+            <h2>inż Piotr Gucwa</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Terapia pocovidowa </h2>
+            <h2>mgr Rafał Kot</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+        <div class="card">
+            <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Terapia pocovidowa </h2>
+            <h2>inż Adam Wisiołek</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
+            <h2>inż Kamil Nowak</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Kontuzje kończyn dolnych </h2>
+            <h2>dr Aneta Magiera</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: Kontuzje kończyn górnych </h2>
+            <h2>inż Alicja Gombka</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+    <div class="card">
+        <div>
+            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+            <h2>Specjalizacja: brak </h2>
+            <h2>dr Michał Drożdż</h2>
+            <button class="yellowButton"> Visit me --> </button>
+        </div>
+        <div>
+            <h3>Godziny przyjęć</h3>
+            <h3>Poniedziałek: 08:00 - 14:00</h3>
+            <h3>Wtorek: 08:00 - 14:00</h3>
+            <h3>Środa: 08:00 - 14:00</h3>
+            <h3>Czwartek: 08:00 - 14:00</h3>
+            <h3>Piątek: 08:00 - 14:00</h3>
+            <h3>Sobota: - </h3>
+            <h3>Niedziela: - </h3>
+        </div>
+    </div>
+<div>

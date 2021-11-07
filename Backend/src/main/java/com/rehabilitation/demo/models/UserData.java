@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,23 +13,41 @@ public class UserData {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    private String title;
     private String name;
     private String surname;
+    private String gender;
+    private Date birthday;
     @Value(value = "${profileImage:https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg}")
     private String profileImage;
-    private String title;
     private String description;
-    private Integer age;
-    private String gender;
-    private String login;
-    private String password;
-    @Column(unique=true)
-    private String email;
 
+    @OneToOne(mappedBy = "userdata",cascade=CascadeType.ALL)
+    private UserAccount userAccount;
 
     //@JsonManagedReference
     @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
     private Set<Phones> phones = new HashSet<>();
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
+    private Set<Specializations> specializations = new HashSet<>();
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "assigned",cascade=CascadeType.ALL)
+    private Set<Comments> commentsAbout = new HashSet<>();
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "author",cascade=CascadeType.ALL)
+    private Set<Comments> commentsOwned = new HashSet<>();
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "sender",cascade=CascadeType.ALL)
+    private Set<CzatMessages> messageSender = new HashSet<>();
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "receiver",cascade=CascadeType.ALL)
+    private Set<CzatMessages> messageReceiver = new HashSet<>();
 
     @OneToMany(mappedBy = "userdata")
     private Set<ExternalContacts> externalContacts;
@@ -36,38 +55,34 @@ public class UserData {
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE})
+            CascadeType.ALL})
     @JoinTable(name="user_address",
     joinColumns =  { @JoinColumn(name= "user_id")},
     inverseJoinColumns = {@JoinColumn(name = "address_id") })
     private Set<Address> address = new HashSet<>();
 
-    @OneToMany(mappedBy = "userdata")
+    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
     private Set<UserRights> userRights;
 
-    @OneToMany(mappedBy = "userdata")
+    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
     private Set<Videos> videos;
 
-    public UserData()
-    {
+    public UserData(){
 
     }
 
-    public UserData(String name, String surname, String profileImage, String title,
-                    String description, Integer age, String gender, String login,
-                    String password, String email) {
+    public UserData(String title, String name, String surname,
+                    String gender, Date birthday, String profileImage,
+                    String description){
+        this.title = title;
         this.name = name;
         this.surname = surname;
-        this.profileImage = profileImage;
-        this.title = title;
-        this.description = description;
-        this.age = age;
         this.gender = gender;
-        this.login = login;
-        this.password = password;
-        this.email = email;
+        this.birthday = birthday;
+        this.profileImage = profileImage;
+        this.description = description;
     }
+
     public void removeAddress(Address addressToRemove){
         address.remove(addressToRemove);
         addressToRemove.getUserdata().remove(this);
@@ -76,16 +91,12 @@ public class UserData {
     public String toString() {
         return "UserData{" +
                 "id=" + id +
+                ", title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", profileImage='" + profileImage + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", description='" + description + '\'' +
                 ", externalContacts=" + externalContacts +
                 ", address=" + address +
                 ", userRights=" + userRights +
@@ -93,12 +104,21 @@ public class UserData {
                 '}';
     }
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -117,6 +137,22 @@ public class UserData {
         this.surname = surname;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
     public String getProfileImage() {
         return profileImage;
     }
@@ -124,10 +160,6 @@ public class UserData {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
-
-    public String getTitle() { return title; }
-
-    public void setTitle(String title) { this.title = title; }
 
     public String getDescription() {
         return description;
@@ -137,59 +169,67 @@ public class UserData {
         this.description = description;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<ExternalContacts> getExternalContacts() {
-        return externalContacts;
+    public Set<Phones> getPhones() {
+        return phones;
     }
 
     public void setPhones(Set<Phones> phones) {
         this.phones = phones;
     }
 
-    public void addPhone(Phones phone) {
-        this.phones.add(phone);
+    public Set<ExternalContacts> getExternalContacts() {
+        return externalContacts;
+    }
+
+    public void setExternalContacts(Set<ExternalContacts> externalContacts) {
+        this.externalContacts = externalContacts;
     }
 
     public Set<Address> getAddress() {
         return address;
+    }
+
+    public void setAddress(Set<Address> address) {
+        this.address = address;
+    }
+
+    public Set<UserRights> getUserRights() {
+        return userRights;
+    }
+
+    public void setUserRights(Set<UserRights> userRights) {
+        this.userRights = userRights;
+    }
+
+    public Set<Videos> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Set<Videos> videos) {
+        this.videos = videos;
+    }
+
+    public Set<Comments> getCommentsAbout() {
+        return commentsAbout;
+    }
+
+    public void setCommentsAbout(Set<Comments> commentsAbout) {
+        this.commentsAbout = commentsAbout;
+    }
+
+    public Set<Comments> getCommentsOwned() {
+        return commentsOwned;
+    }
+
+    public void setCommentsOwned(Set<Comments> commentsOwned) {
+        this.commentsOwned = commentsOwned;
+    }
+
+    public UserAccount getUser() {
+        return userAccount;
+    }
+
+    public void setUser(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 }

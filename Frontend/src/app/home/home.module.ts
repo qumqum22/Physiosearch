@@ -4,13 +4,20 @@ import { AgmCoreModule } from '@agm/core';
 
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './home.component';
 import {HomeRoutingModule } from './home-routing.module';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { StartComponent } from './start/start.component';
+import { SearchComponent } from './search/search.component';
+import { MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,12 +26,19 @@ import { SettingsComponent } from './settings/settings.component';
     HomeComponent,
     NavigationBarComponent,
     ProfileComponent,
-    SettingsComponent],
+    SettingsComponent,
+    StartComponent,
+    SearchComponent],
   imports: [ 
     CommonModule,
     HomeRoutingModule,
     AgmCoreModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTabsModule,
+    FormsModule, ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule, 
+    MatInputModule,
   ],
 
   exports: [],

@@ -1,13 +1,39 @@
 package com.rehabilitation.demo.payload;
 
-public class RegisterUserRequest {
+public class RegisterUserAccountRequest {
 
+    private Long id;
+    private Integer rehabilitantId;
     private String email;
     private String password;
     private String name;
     private String surname;
 
-    public RegisterUserRequest() {
+    public RegisterUserAccountRequest() {
+    }
+
+    public RegisterUserAccountRequest(Integer rehabilitantId, String email, String password, String name, String surname) {
+        this.rehabilitantId = rehabilitantId;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getRehabilitantId() {
+        return rehabilitantId;
+    }
+
+    public void setRehabilitantId(Integer rehabilitantId) {
+        this.rehabilitantId = rehabilitantId;
     }
 
     public String getEmail() {
@@ -44,7 +70,7 @@ public class RegisterUserRequest {
 
     @Override
     public String toString() {
-        return "RegisterUserRequest{" +
+        return "RegisterUserAccountRequest{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +

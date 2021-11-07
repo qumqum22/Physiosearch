@@ -1,0 +1,80 @@
+.profile{
+    margin:0;
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .user-info{
+        height: 70%;
+        width: 100%;
+        display:flex;
+        flex-direction: row;
+        .card{
+            margin:auto;
+            margin-right:0em;
+            height: 90%;
+            width: 45%;
+            border-style:solid;
+            border-radius: 1em;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background-color: rgba(255,0,0,0.5);
+            min-width: 300px;
+            text-align: center;
+            .profile-img{
+                margin-top: 1em;
+                max-width: 60%;
+            }
+        }
+
+        .contact-types{
+            margin:auto;
+            margin-left:0%;
+            height: 90%;
+            width: 45%;
+            .adresses{
+                input{
+                    text-align: justify;
+                    width: 37vw;
+                    height: 15vh;
+                }
+            }
+            .contacts, .adresses{
+                margin:auto;
+                margin-top: 1em;
+                height: 20em;
+                //height: 45%;
+                width: 100%;
+
+                border-style:solid;
+                border-radius: 1em;
+
+                    padding-left:1em;
+
+                .phones{
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    overflow: auto;
+                    height:7vh;
+                    p{
+                        margin:0;
+                    }
+               }
+            }
+        }
+    }
+    .videos-bar{
+        margin:auto;
+        height: 30%;
+        width: 90%;
+        display:flex;
+        flex-direction: row;
+        border-style:solid;
+        border-radius: 1em;
+
+        iframe
+        {
+            margin: 1em;
+        }
+    }
+}
