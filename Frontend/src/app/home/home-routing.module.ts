@@ -6,15 +6,18 @@ import { HomeComponent } from './home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StartComponent } from './start/start.component';
+import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent,
     children: [
     { path: '', component: StartComponent },
+    // { path: 'profile', component: ProfileComponent },
+    { path: 'profile/:id', component: ProfileComponent },
+    { path: 'settings', component: SettingsComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'settings', component: SettingsComponent },
+    { path: 'search', component: SearchComponent },
     //{ path: '**', component: ErrorPageComponent}
     ]
     },

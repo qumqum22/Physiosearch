@@ -1,1 +1,70 @@
-<p>profile works!</p>
+<div class="profile" *ngIf="user">
+    <div class="user-info" *ngIf="user">
+
+        <div class="card">
+
+            <img *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
+            <img *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+
+            <h2>{{user?.title}} {{user?.name}} {{user?.surname}}</h2>
+            <input [(ngModel)]="titleField">
+            <input [(ngModel)]="nameField">
+            <input [(ngModel)]="surnameField">
+            <!-- <button (click)="updateUser()" class="saveButton">save</button> -->
+            
+        </div>
+
+        <hr>
+         
+        <div class="contact-types">
+            <div class="adresses">
+                <P>Description: </P>
+                <input [(ngModel)]="descriptionField">
+                <button (click)="updateUser()" class="saveButton">save</button>
+            </div>
+        </div> 
+    </div>
+        <!--  w bazie musze zamienic watch na embed mniej wiecej -->
+</div>
+
+<mat-tab-group dynamicHeight>
+    <mat-tab label="About me">
+        <div class="adresses">
+            <P>Description: </P>
+            <input [(ngModel)]="descriptionField">
+            <button (click)="updateUser()" class="saveButton">save</button>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Phones">
+        <div class="phones">
+            <p *ngFor="let phone of phones"> {{phone.phoneNumber}} 
+                <button class="deleteButton" (click)="deletePhone(phone.id)">X</button>
+            </p>
+        </div> 
+        <form #addPhoneForm="ngForm" (ngSubmit)="addPhone(addPhoneForm)" >
+            <div class="addPhone">
+                <input ngModel name="phoneNumber" type="number" placeholder="phone number" minlength="6" maxlength="12">
+                <button type="submit" name="add_phone" class="addButton">+</button>
+            </div>
+        </form>   
+    </mat-tab>
+
+    <mat-tab label="Addresses">
+        <div class="addresses">
+            <p *ngFor="let address of addresses"> 
+                {{address.city}}, ul.{{address.street}} {{address.number}}, ZIP: {{address.postalCode}}
+                <button class="deleteButton" (click)="deleteAddress(address.id, user.id)">X</button>
+            </p>
+        </div>
+    </mat-tab>
+    <mat-tab label="Videos">
+        <div class="videos-bar">
+            <iframe  src="https://www.youtube.com/embed/50ZvMarcQmI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe  src="https://www.youtube.com/embed/50ZvMarcQmI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <form>
+                    <p> add</p>
+            </form>
+        </div> 
+    </mat-tab>
+</mat-tab-group>
