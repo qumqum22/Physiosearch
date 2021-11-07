@@ -21,10 +21,8 @@ public class Address {
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
-    cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    },mappedBy = "address")
+    cascade = CascadeType.ALL,
+    mappedBy = "address")
     private Set<UserData> userdata = new HashSet<>();
 
 

@@ -4,7 +4,7 @@ import com.rehabilitation.demo.models.Address;
 import com.rehabilitation.demo.models.Phones;
 import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.payload.AddPhoneRequest;
-import com.rehabilitation.demo.payload.RegisterUserRequest;
+import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.services.AddressService;
 import com.rehabilitation.demo.services.PhonesService;
@@ -31,7 +31,7 @@ public class UserController {
         this.addressService = addressService;
     }
 
-    // User's actions.
+    // UserAccount's actions.
     @GetMapping("/users")
     public List<UserData> all()
     {
@@ -52,11 +52,11 @@ public class UserController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/register")
-    public boolean newUser(@RequestBody RegisterUserRequest registerUserRequest)
+    public boolean newUser(@RequestBody RegisterUserAccountRequest registerUserRequest)
     {
-        System.out.println(registerUserRequest);
         return userService.save(registerUserRequest);
     }
+
 
     @PutMapping("/users/update/{id}")
     public boolean changeData(@PathVariable("id") long id, @RequestBody UpdateUserRequest updateUserRequest)
@@ -72,7 +72,7 @@ public class UserController {
     }
 
 
-    // User's phones actions.
+    // UserAccount's phones actions.
 
     @GetMapping("/phones/{user_id}")
     public List<Phones> allPhones(@PathVariable("user_id") long user_id) {
@@ -97,7 +97,7 @@ public class UserController {
         phonesService.addPhone(phone);
     }
 
-    // User's addresses actions.
+    // UserAccount's addresses actions.
     @GetMapping("/address/{id}")
     public Address getSingleAddress(@PathVariable("id") long id){
         return addressService.getSingleAddress(id);

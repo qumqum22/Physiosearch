@@ -9,7 +9,7 @@ public class UserRights {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String type;
+    private String accessRights;
 
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName="id", nullable = false)
@@ -19,8 +19,8 @@ public class UserRights {
 
     }
 
-    public UserRights(String type) {
-        this.type = type;
+    public UserRights(String accessRights) {
+        this.accessRights = accessRights;
     }
 
     public Long getId() {
@@ -31,11 +31,11 @@ public class UserRights {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getAccessRights() {
+        return accessRights;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAccessRights(String accessRights) {
+        this.accessRights = accessRights;
     }
 }
