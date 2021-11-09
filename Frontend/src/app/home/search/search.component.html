@@ -28,158 +28,62 @@
     </div>
 </div>
 
-<div class ="cards" >
-    <!-- <div class="card" *ngFor="let user of users">
-        <img *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
-        <img *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-        <h2>{{user.title}} {{user.name}} {{user.surname}}</h2>
-        <h2>{{user.email}}</h2>
-        <h3>{{user.description}}</h3>
-        <button class="yellowButton" (click)="onSelect(user)" > Visit me  </button>
-    </div> -->
-    <div class="card" *ngFor="let user of usersForArray">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
-            <h2>{{user.title}} {{user.name}} {{user.surname}}</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: {{user.getOfficeHours().getMonday().getStart()}} - {{user.getOfficeHours().getMonday().getEnd()}}</h3>
-            <h3>Wtorek: {{user.getOfficeHours().getTuesday().getStart()}} - {{user.getOfficeHours().getTuesday().getEnd()}}</h3>
-            <h3>Środa: {{user.getOfficeHours().getWednesday().getStart()}} - {{user.getOfficeHours().getWednesday().getEnd()}}</h3>
-            <h3>Czwartek: {{user.getOfficeHours().getThursday().getStart()}} - {{user.getOfficeHours().getThursday().getEnd()}}</h3>
-            <h3>Piątek: {{user.getOfficeHours().getFriday().getStart()}} - {{user.getOfficeHours().getFriday().getEnd()}}</h3>
-            <h3>Sobota: {{user.getOfficeHours().getSaturday().getStart()}} - {{user.getOfficeHours().getSaturday().getEnd()}} </h3>
-            <h3>Niedziela: {{user.getOfficeHours().getSunday().getStart()}} - {{user.getOfficeHours().getSunday().getEnd()}} </h3>
+<div *ngFor="let user of users">
+    <div class="card">
+        <div class="row">
+            <div class=" col-3 p-4">
+                <img class="profile-img" *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
+                <img class="profile-img" *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+                <h5>{{user.title}} {{user.name}} {{user.surname}}</h5>
+            </div>
+            <div class="col-6 p-4">
+                <p> Rating: 0.0 / 5.0 </p>
+                <h5>{{user.description}}</h5>
+                <h5>Specjalizacja: Schorzenia kręgosłupa </h5>
+                <button class="yellowButton"> Visit me </button>
+            </div>
+            <div class="col-3 p-4">
+                <h5>Godziny otwarcia:</h5>
+                <td>
+                    <tr>
+                       <td colspan="2">Poniedziałek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Wtorek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Środa </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Czwartek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Piątek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Sobota </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Niedziela </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                    </tr>
+                </td>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="card">
+<!-- <div class = "container">
+    <div class="row">
+        <div class ="col-lg-3 col-md-1" >
+            <div class="card" *ngFor="let user of users">
+                <img *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
+                <img *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+                <h2>{{user.title}} {{user.name}} {{user.surname}}</h2>
+                <h2>{{user.email}}</h2>
+                <h3>{{user.description}}</h3>
+                <button class="yellowButton" (click)="onSelect(user)" > Visit me  </button>
+            </div>
         <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
-            <h2>inż Piotr Gucwa</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
     </div>
-    <div class="card">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Terapia pocovidowa </h2>
-            <h2>mgr Rafał Kot</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-        <div class="card">
-            <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Terapia pocovidowa </h2>
-            <h2>inż Adam Wisiołek</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-    <div class="card">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Schorzenia kręgosłupa </h2>
-            <h2>inż Kamil Nowak</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-    <div class="card">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Kontuzje kończyn dolnych </h2>
-            <h2>dr Aneta Magiera</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-    <div class="card">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: Kontuzje kończyn górnych </h2>
-            <h2>inż Alicja Gombka</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-    <div class="card">
-        <div>
-            <img src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <h2>Specjalizacja: brak </h2>
-            <h2>dr Michał Drożdż</h2>
-            <button class="yellowButton"> Visit me --> </button>
-        </div>
-        <div>
-            <h3>Godziny przyjęć</h3>
-            <h3>Poniedziałek: 08:00 - 14:00</h3>
-            <h3>Wtorek: 08:00 - 14:00</h3>
-            <h3>Środa: 08:00 - 14:00</h3>
-            <h3>Czwartek: 08:00 - 14:00</h3>
-            <h3>Piątek: 08:00 - 14:00</h3>
-            <h3>Sobota: - </h3>
-            <h3>Niedziela: - </h3>
-        </div>
-    </div>
-<div>
+</div> -->
+   
