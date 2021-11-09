@@ -1,5 +1,7 @@
 package com.rehabilitation.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class ExternalContacts {
     private Long id;
     private String link;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName="id", nullable = false)
     private UserData userdata;

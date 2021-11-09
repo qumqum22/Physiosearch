@@ -1,5 +1,7 @@
 package com.rehabilitation.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,10 +15,12 @@ public class Comments {
     private Date commentDate;
     private Integer rate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_commentsAbout")
     private UserData author;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_commentsOwned")
     private UserData assigned;

@@ -1,6 +1,8 @@
 package com.rehabilitation.demo.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class UserRights {
     private Long id;
     private String accessRights;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName="id", nullable = false)
     private UserData userdata;

@@ -1,5 +1,7 @@
 package com.rehabilitation.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,7 @@ public class Specializations {
     private Long id;
     private String specializationName;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_id")
     private UserData userdata;

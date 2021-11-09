@@ -1,6 +1,7 @@
 package com.rehabilitation.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ public class Phones {
     private Long id;
     private String phoneNumber;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_id")
     private UserData userdata;

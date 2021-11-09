@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRightsRepository extends JpaRepository<UserRights, Long> {
-
+    UserRights findByAccessRights(String accessRights);
 }

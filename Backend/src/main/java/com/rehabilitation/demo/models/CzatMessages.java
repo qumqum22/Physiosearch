@@ -1,5 +1,7 @@
 package com.rehabilitation.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,10 +13,12 @@ public class CzatMessages {
     private String comment;
     private Date commentDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_messageSender")
     private UserData sender;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_messageReceiver")
     private UserData receiver;
