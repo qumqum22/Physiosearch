@@ -9,38 +9,19 @@ import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.repository.UserAccountRepository;
 import com.rehabilitation.demo.repository.UserDataRepository;
 import com.rehabilitation.demo.repository.UserRightsRepository;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserDataRepository userDataRepository;
     private final UserAccountRepository userAccountRepository;
     private final UserRightsRepository userRightsRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserAccount userAccount = userAccountRepository.findUserAccountByEmail(email);
-        if(userAccount == null){
-            throw new UsernameNotFoundException("User not found in the database");
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        userAccount.getUserdata().getRights().forEach(accessRight ->
-                authorities.add(new SimpleGrantedAuthority(accessRight.getAccessRights())));
-        return new org.springframework.security.core.userdetails.User(
-                userAccount.getEmail(), userAccount.getPassword(), authorities
-        );
-    }
 
     public UserService(UserDataRepository userDataRepository, UserAccountRepository userAccountRepository,
                        UserRightsRepository userRightsRepository, PasswordEncoder passwordEncoder) {
