@@ -57,7 +57,6 @@ registerUser():void{
     && this.nameField.length > 4
     && this.surnameField.length > 4)
     {
-      this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
       this.registeredUserRequest.email = this.emailField;
       this.registeredUserRequest.password = this.passwordField;
       this.registeredUserRequest.name = this.toTitleCase(this.nameField);
@@ -73,27 +72,27 @@ registerUser():void{
       }
     }
     
-    registerRehabilitant():void{    
-      if(this.emailField.length > 4 
-        && this.passwordField.length > 4
-        && this.nameField.length > 4
-        && this.surnameField.length > 4)
-        {
-          this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
-          this.registeredUserRequest.email = this.emailField;
-          this.registeredUserRequest.password = this.passwordField;
-          this.registeredUserRequest.name = this.toTitleCase(this.nameField);
-          this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
-          console.log(this.registeredUserRequest);
-          this.userAccountService.registerUser(this.registeredUserRequest).subscribe(
-            (data) => {
-              console.log(data);
-              this.router.navigateByUrl('/login')})
-          }
-          else{
-            alert("Wrong data");
-          }
-        }
+registerPhysio():void{    
+  if(this.emailField.length > 4 
+    && this.passwordField.length > 4
+    && this.nameField.length > 4
+    && this.surnameField.length > 4)
+    {
+      this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
+      this.registeredUserRequest.email = this.emailField;
+      this.registeredUserRequest.password = this.passwordField;
+      this.registeredUserRequest.name = this.toTitleCase(this.nameField);
+      this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
+      console.log(this.registeredUserRequest);
+      this.userAccountService.registerPhysio(this.registeredUserRequest).subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigateByUrl('/login')})
+      }
+      else{
+        alert("Wrong data");
+      }
+    }
   
 
 ngOnInit(): void {

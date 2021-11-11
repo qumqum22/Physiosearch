@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser = 1;
+  currentUser = 6;
   user: User;
 
   phoneRequest: AddPhoneRequest = {

@@ -15,7 +15,10 @@ export class UserAccountService {
   constructor(private http:HttpClient) { }
 
   public registerUser(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
-    return this.http.post<UserAccount>(`${this.apiServerUrl}/register`, userAccount);
+    return this.http.post<UserAccount>(`${this.apiServerUrl}/registerUser`, userAccount);
   }
 
+  public registerPhysio(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
+    return this.http.post<UserAccount>(`${this.apiServerUrl}/registerPhysio`, userAccount);
+  }
 }
