@@ -21,6 +21,8 @@ public class UserData {
     @Value(value = "${profileImage:https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg}")
     private String profileImage;
     private String description;
+    @Value(value = "0")
+    private String physioID; // unique, ale gdy nie istnieje ?
 
     @OneToOne(mappedBy = "userdata",cascade=CascadeType.ALL)
     private UserAccount userAccount;
@@ -61,8 +63,14 @@ public class UserData {
     inverseJoinColumns = {@JoinColumn(name = "address_id") })
     private Set<Address> address = new HashSet<>();
 
-    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
-    private Set<UserRights> userRights;
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.ALL})
+    @JoinTable(name="userdata_right",
+            joinColumns =  { @JoinColumn(name= "userdata_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_rights_id") })
+    private Set<UserRights> rights = new HashSet<>();
 
     @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
     private Set<Videos> videos;
@@ -71,9 +79,8 @@ public class UserData {
 
     }
 
-    public UserData(String title, String name, String surname,
-                    String gender, Date birthday, String profileImage,
-                    String description){
+    public UserData(String title, String name, String surname, String gender, Date birthday,
+                    String profileImage, String description, String physioID) {
         this.title = title;
         this.name = name;
         this.surname = surname;
@@ -81,6 +88,7 @@ public class UserData {
         this.birthday = birthday;
         this.profileImage = profileImage;
         this.description = description;
+        this.physioID = physioID;
     }
 
     public void removeAddress(Address addressToRemove){
@@ -99,7 +107,7 @@ public class UserData {
                 ", description='" + description + '\'' +
                 ", externalContacts=" + externalContacts +
                 ", address=" + address +
-                ", userRights=" + userRights +
+                ", userRights=" + rights +
                 ", videos=" + videos +
                 '}';
     }
@@ -193,12 +201,12 @@ public class UserData {
         this.address = address;
     }
 
-    public Set<UserRights> getUserRights() {
-        return userRights;
+    public Set<UserRights> getRights() {
+        return rights;
     }
 
-    public void setUserRights(Set<UserRights> userRights) {
-        this.userRights = userRights;
+    public void setRights(Set<UserRights> userRights) {
+        this.rights = userRights;
     }
 
     public Set<Videos> getVideos() {
@@ -231,5 +239,45 @@ public class UserData {
 
     public void setUser(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    public String getPhysioID() {
+        return physioID;
+    }
+
+    public void setPhysioID(String rehabilitantID) {
+        this.physioID = rehabilitantID;
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public Set<Specializations> getSpecializations() {
+        return specializations;
+    }
+
+    public void setSpecializations(Set<Specializations> specializations) {
+        this.specializations = specializations;
+    }
+
+    public Set<CzatMessages> getMessageSender() {
+        return messageSender;
+    }
+
+    public void setMessageSender(Set<CzatMessages> messageSender) {
+        this.messageSender = messageSender;
+    }
+
+    public Set<CzatMessages> getMessageReceiver() {
+        return messageReceiver;
+    }
+
+    public void setMessageReceiver(Set<CzatMessages> messageReceiver) {
+        this.messageReceiver = messageReceiver;
     }
 }

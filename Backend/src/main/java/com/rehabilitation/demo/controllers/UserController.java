@@ -51,12 +51,18 @@ public class UserController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/register")
+    @PostMapping("/registerUser")
     public boolean newUser(@RequestBody RegisterUserAccountRequest registerUserRequest)
     {
-        return userService.save(registerUserRequest);
+        return userService.save(registerUserRequest, false);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/registerPhysio")
+    public boolean newPhysio(@RequestBody RegisterUserAccountRequest registerUserRequest)
+    {
+        return userService.save(registerUserRequest, true);
+    }
 
     @PutMapping("/users/update/{id}")
     public boolean changeData(@PathVariable("id") long id, @RequestBody UpdateUserRequest updateUserRequest)

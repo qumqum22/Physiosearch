@@ -3,24 +3,51 @@ package com.rehabilitation.demo.services;
 import com.rehabilitation.demo.models.Address;
 import com.rehabilitation.demo.models.UserAccount;
 import com.rehabilitation.demo.models.UserData;
+import com.rehabilitation.demo.models.UserRights;
 import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.repository.UserAccountRepository;
 import com.rehabilitation.demo.repository.UserDataRepository;
+import com.rehabilitation.demo.repository.UserRightsRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserDataRepository userDataRepository;
     private final UserAccountRepository userAccountRepository;
+    private final UserRightsRepository userRightsRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserDataRepository userDataRepository, UserAccountRepository userAccountRepository) {
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserAccount userAccount = userAccountRepository.findUserAccountByEmail(email);
+        if(userAccount == null){
+            throw new UsernameNotFoundException("User not found in the database");
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        userAccount.getUserdata().getRights().forEach(accessRight ->
+                authorities.add(new SimpleGrantedAuthority(accessRight.getAccessRights())));
+        return new org.springframework.security.core.userdetails.User(
+                userAccount.getEmail(), userAccount.getPassword(), authorities
+        );
+    }
+
+    public UserService(UserDataRepository userDataRepository, UserAccountRepository userAccountRepository,
+                       UserRightsRepository userRightsRepository, PasswordEncoder passwordEncoder) {
         this.userDataRepository = userDataRepository;
         this.userAccountRepository = userAccountRepository;
+        this.userRightsRepository = userRightsRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -36,7 +63,8 @@ public class UserService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    public boolean save(RegisterUserAccountRequest registerUserAccountRequest) {
+    public boolean save(RegisterUserAccountRequest registerUserAccountRequest, boolean isPhysio) {
+        registerUserAccountRequest.setPassword(passwordEncoder.encode(registerUserAccountRequest.getPassword()));
         if(!registerUserAccountRequest.getEmail().contains("@"))
             return false;
         if(!registerUserAccountRequest.getEmail().contains("."))
@@ -44,14 +72,17 @@ public class UserService {
         if(registerUserAccountRequest.getPassword().length() < 6) {
             return false;
         }
+        String userName = registerUserAccountRequest.getName();
+        String gender = (userName.endsWith("a")) ? "Female" : "Male";
         UserData newUserData = new UserData(
                 "",
                 registerUserAccountRequest.getName(),
                 registerUserAccountRequest.getSurname(),
+                gender,
                 null,
                 null,
-                null,
-                "Default description");
+                "Default description",
+                registerUserAccountRequest.getPhysioId());
 
         UserAccount userAccount = new UserAccount(
                 registerUserAccountRequest.getEmail(),
@@ -60,6 +91,12 @@ public class UserService {
                 "seed",
                 newUserData);
 
+        UserRights userUser = userRightsRepository.findByAccessRights("USER");
+        newUserData.getRights().add(userUser);
+        if (isPhysio){
+            UserRights userPhysio = userRightsRepository.findByAccessRights("PHYSIO");
+            newUserData.getRights().add(userPhysio);
+        }
         this.userDataRepository.save(newUserData);
         this.userAccountRepository.save(userAccount);
         return true;
@@ -82,4 +119,6 @@ public class UserService {
     public void deleteUser(long id) {
         userDataRepository.deleteById(id);
     }
+
+
 }

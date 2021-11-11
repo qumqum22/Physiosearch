@@ -3,7 +3,7 @@ package com.rehabilitation.demo.payload;
 public class RegisterUserAccountRequest {
 
     private Long id;
-    private Integer rehabilitantId;
+    private String physioId;
     private String email;
     private String password;
     private String name;
@@ -12,8 +12,8 @@ public class RegisterUserAccountRequest {
     public RegisterUserAccountRequest() {
     }
 
-    public RegisterUserAccountRequest(Integer rehabilitantId, String email, String password, String name, String surname) {
-        this.rehabilitantId = rehabilitantId;
+    public RegisterUserAccountRequest(String physioId, String email, String password, String name, String surname) {
+        this.physioId = physioId;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -28,12 +28,12 @@ public class RegisterUserAccountRequest {
         this.id = id;
     }
 
-    public Integer getRehabilitantId() {
-        return rehabilitantId;
+    public String getPhysioId() {
+        return physioId;
     }
 
-    public void setRehabilitantId(Integer rehabilitantId) {
-        this.rehabilitantId = rehabilitantId;
+    public void setPhysioId(String physioId) {
+        this.physioId = physioId;
     }
 
     public String getEmail() {
@@ -71,6 +71,7 @@ public class RegisterUserAccountRequest {
     @Override
     public String toString() {
         return "RegisterUserAccountRequest{" +
+                "physio id='" + physioId + '\'' +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +

@@ -1,9 +1,12 @@
 package com.rehabilitation.demo.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class UserRights {
@@ -13,10 +16,11 @@ public class UserRights {
     private Long id;
     private String accessRights;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName="id", nullable = false)
-    private UserData userdata;
+    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "rights")
+    private Set<UserData> userdata = new HashSet<>();
 
     public UserRights(){
 
@@ -40,5 +44,13 @@ public class UserRights {
 
     public void setAccessRights(String accessRights) {
         this.accessRights = accessRights;
+    }
+
+    public Set<UserData> getUserdata() {
+        return userdata;
+    }
+
+    public void setUserdata(Set<UserData> userdata) {
+        this.userdata = userdata;
     }
 }
