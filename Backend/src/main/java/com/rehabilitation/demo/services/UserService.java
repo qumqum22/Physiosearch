@@ -9,28 +9,20 @@ import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.repository.UserAccountRepository;
 import com.rehabilitation.demo.repository.UserDataRepository;
 import com.rehabilitation.demo.repository.UserRightsRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserDataRepository userDataRepository;
     private final UserAccountRepository userAccountRepository;
     private final UserRightsRepository userRightsRepository;
     private final PasswordEncoder passwordEncoder;
-
-
-    public UserService(UserDataRepository userDataRepository, UserAccountRepository userAccountRepository,
-                       UserRightsRepository userRightsRepository, PasswordEncoder passwordEncoder) {
-        this.userDataRepository = userDataRepository;
-        this.userAccountRepository = userAccountRepository;
-        this.userRightsRepository = userRightsRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
 
     public List<UserData> getUsers() {
         return userDataRepository.findAll();

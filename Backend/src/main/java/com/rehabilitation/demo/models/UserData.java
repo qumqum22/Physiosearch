@@ -22,7 +22,7 @@ public class UserData {
     private String profileImage;
     private String description;
     @Value(value = "0")
-    private String physioID; // unique, ale gdy nie istnieje ?
+    private String physioID; // unique, ale gdy nie istnieje?
 
     @OneToOne(mappedBy = "userdata",cascade=CascadeType.ALL)
     private UserAccount userAccount;

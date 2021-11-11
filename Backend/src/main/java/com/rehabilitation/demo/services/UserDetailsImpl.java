@@ -2,8 +2,6 @@ package com.rehabilitation.demo.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rehabilitation.demo.models.UserAccount;
-import com.rehabilitation.demo.models.UserData;
-import com.rehabilitation.demo.models.UserRights;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +15,7 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-
     private String email;
-
     @JsonIgnore
     private String password;
 
