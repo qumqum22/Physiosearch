@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterUserAccountRequest } from 'src/app/models/registerUserAccountRequest';
-import { UserAccountService } from 'src/app/services/user-account.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from '../../models/user';
 
 @Component({
@@ -45,7 +45,7 @@ get confirmPassword(){return this.registerForm.get('confirmPassword')}
 get name(){return this.registerForm.get('name')}
 get surname(){return this.registerForm.get('surname')}
 
-constructor(private userAccountService: UserAccountService, private router:Router) { }
+constructor(private userService: UserService, private router:Router) { }
 
 toTitleCase(name: string): string{
   return `${name[0].toUpperCase()}${name.substr(1).toLowerCase()}`;
@@ -57,13 +57,12 @@ registerUser():void{
     && this.nameField.length > 4
     && this.surnameField.length > 4)
     {
-      this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
       this.registeredUserRequest.email = this.emailField;
       this.registeredUserRequest.password = this.passwordField;
       this.registeredUserRequest.name = this.toTitleCase(this.nameField);
       this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
       console.log(this.registeredUserRequest);
-      this.userAccountService.registerUser(this.registeredUserRequest).subscribe(
+      this.userService.registerUser(this.registeredUserRequest).subscribe(
         (data) => {
           console.log(data);
           this.router.navigateByUrl('/login')})
@@ -73,27 +72,27 @@ registerUser():void{
       }
     }
     
-    registerRehabilitant():void{    
-      if(this.emailField.length > 4 
-        && this.passwordField.length > 4
-        && this.nameField.length > 4
-        && this.surnameField.length > 4)
-        {
-          this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
-          this.registeredUserRequest.email = this.emailField;
-          this.registeredUserRequest.password = this.passwordField;
-          this.registeredUserRequest.name = this.toTitleCase(this.nameField);
-          this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
-          console.log(this.registeredUserRequest);
-          this.userAccountService.registerUser(this.registeredUserRequest).subscribe(
-            (data) => {
-              console.log(data);
-              this.router.navigateByUrl('/login')})
-          }
-          else{
-            alert("Wrong data");
-          }
-        }
+registerPhysio():void{    
+  if(this.emailField.length > 4 
+    && this.passwordField.length > 4
+    && this.nameField.length > 4
+    && this.surnameField.length > 4)
+    {
+      this.registeredUserRequest.rehabilitantId = this.rehabilitantIdField;
+      this.registeredUserRequest.email = this.emailField;
+      this.registeredUserRequest.password = this.passwordField;
+      this.registeredUserRequest.name = this.toTitleCase(this.nameField);
+      this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
+      console.log(this.registeredUserRequest);
+      this.userService.registerPhysio(this.registeredUserRequest).subscribe(
+        (data) => {
+          console.log(data);
+          this.router.navigateByUrl('/login')})
+      }
+      else{
+        alert("Wrong data");
+      }
+    }
   
 
 ngOnInit(): void {

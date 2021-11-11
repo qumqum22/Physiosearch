@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RegisterUserRequest } from '../models/registerUserRequest';
+import { LoginRequest } from '../models/loginRequest';
+import { RegisterUserAccountRequest } from '../models/registerUserAccountRequest';
 import { UpdateUserRequest } from '../models/updateUserRequest';
 import { User } from '../models/user';
+import { UserAccount } from '../models/userAccount';
 
 @Injectable({
     providedIn: 'root'
@@ -16,10 +18,19 @@ export class UserService {
     constructor(private http:HttpClient) {
     }
 
+    public loginUser(login: LoginRequest):Observable<UserAccount>
+    {
+        return this.http.post<UserAccount>(`${this.apiServerUrl}/signin`, login);
+    }
 
-    // REFACTORED
-
-    // UNREFACTORED
+    public registerUser(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
+        return this.http.post<UserAccount>(`${this.apiServerUrl}/registerUser`, userAccount);
+      }
+    
+      public registerPhysio(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
+        return this.http.post<UserAccount>(`${this.apiServerUrl}/registerPhysio`, userAccount);
+      }
+      
     public getUsers():Observable<User[]> {
         
         return this.http.get<User[]>(`${this.apiServerUrl}/users`);
@@ -33,11 +44,6 @@ export class UserService {
     public getUsersByAddress(id: number):Observable<User[]> {
         
         return this.http.get<User[]>(`${this.apiServerUrl}/users/address/${id}`);
-    }
-
-
-    public registerUser(user: RegisterUserRequest):Observable<User> {
-        return this.http.post<User>(`${this.apiServerUrl}`, user);
     }
 
     public updateUser(userId: number, updateUserData: UpdateUserRequest):Observable<User> {

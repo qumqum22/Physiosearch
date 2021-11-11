@@ -9,7 +9,6 @@ public class UserAccount {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     @Column(unique=true)
-    //private Integer rehabilitantID;
     private String email;
     private String password;
     private String salt;
@@ -76,5 +75,13 @@ public class UserAccount {
 
     public void setSeed(String seed) {
         this.seed = seed;
+    }
+
+    public UserData getUserdata() {
+        return userdata;
+    }
+
+    public void setUserdata(UserData userdata) {
+        this.userdata = userdata;
     }
 }
