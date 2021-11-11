@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterUserAccountRequest } from 'src/app/models/registerUserAccountRequest';
-import { UserAccountService } from 'src/app/services/user-account.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from '../../models/user';
 
 @Component({
@@ -45,7 +45,7 @@ get confirmPassword(){return this.registerForm.get('confirmPassword')}
 get name(){return this.registerForm.get('name')}
 get surname(){return this.registerForm.get('surname')}
 
-constructor(private userAccountService: UserAccountService, private router:Router) { }
+constructor(private userService: UserService, private router:Router) { }
 
 toTitleCase(name: string): string{
   return `${name[0].toUpperCase()}${name.substr(1).toLowerCase()}`;
@@ -62,7 +62,7 @@ registerUser():void{
       this.registeredUserRequest.name = this.toTitleCase(this.nameField);
       this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
       console.log(this.registeredUserRequest);
-      this.userAccountService.registerUser(this.registeredUserRequest).subscribe(
+      this.userService.registerUser(this.registeredUserRequest).subscribe(
         (data) => {
           console.log(data);
           this.router.navigateByUrl('/login')})
@@ -84,7 +84,7 @@ registerPhysio():void{
       this.registeredUserRequest.name = this.toTitleCase(this.nameField);
       this.registeredUserRequest.surname = this.toTitleCase(this.surnameField);
       console.log(this.registeredUserRequest);
-      this.userAccountService.registerPhysio(this.registeredUserRequest).subscribe(
+      this.userService.registerPhysio(this.registeredUserRequest).subscribe(
         (data) => {
           console.log(data);
           this.router.navigateByUrl('/login')})
