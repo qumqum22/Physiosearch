@@ -1,103 +1,56 @@
-<div class="loginpage">
-    <div class="login-container">
-            <div class="login">
-                <form
-                    *ngIf="!isLoggedIn"
-                    name="form"
-                    (ngSubmit)="f.form.valid && onSubmit()"
-                    #f="ngForm"
-                    novalidate
-                >
-                    <div class="form-group">
-                        <label for="email">Username</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="email"
-                            [(ngModel)]="form.formEmail"
-                            required
-                            #email="ngModel"
-                        />
-                        <div
-                            class="alert alert-danger"
-                            role="alert"
-                            *ngIf="email.errors && f.submitted"
-                        >
-                            Username is required!
+<div class="loginpage default-background">
+    <div class="login-container row justify-content-around">
+            <div class="login col-10" >
+                <form class=" col-12 column justify-content-center" *ngIf="!isLoggedIn" name="form" #f="ngForm" novalidate
+                    (ngSubmit)="f.form.valid && onSubmit()">
+                    <div class="buttons">
+                        <div class="form-group">
+                            <h4>Sign in to your account</h4> 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            name="password"
-                            [(ngModel)]="form.formPassword"
-                            required
-                            minlength="6"
-                            #password="ngModel"
+                        <input type="text" class="form-control row col-6 justify-content-around" name="email" placeholder="Email"
+                        [(ngModel)]="form.formEmail" required #email="ngModel"/>
+                        <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
+                            Email is required!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Password"
+                            [(ngModel)]="form.formPassword" required minlength="6" #password="ngModel"
                         />
-                        <div
-                            class="alert alert-danger"
-                            role="alert"
-                            *ngIf="password.errors && f.submitted"
-                        >
+                        <div role="alert" *ngIf="password.errors && f.submitted" style="color: red;">
                             <div *ngIf="password.errors.required">Password is required</div>
-                            <div *ngIf="password.errors.minlength">
-                                Password must be at least 6 characters
-                            </div>
                         </div>
                     </div>
                     <div class="buttons">
-    
                         <div class="form-group">
                             <button class="btn btn-primary btn-block">
-                                Login
+                                Sign in
                             </button>
+                        </div>
+                        <div class="col-1">
+
                         </div>
                         <div class="form-group">
                             <button type="button" routerLink="/register" class="btn btn-primary btn-block">
                                 Register
                             </button>
                         </div>
-                        <!-- <button type="button" routerLink="/register" class="button">
-                            Register
-                        </button> -->
                     </div>
                     <div class="form-group">
-                        <div
-                            class="alert alert-danger"
-                            role="alert"
-                            *ngIf="f.submitted && isLoginFailed"
-                        >
-                            Login failed: {{ errorMessage }}
+                        <div class="alert alert-danger" role="alert"
+                            *ngIf="f.submitted && isLoginFailed">
+                            Provided wrong email or password.
                         </div>
                     </div>
+                </form>
+                <form *ngIf="isLoggedIn" name="form" #f="ngForm" novalidate
+                (ngSubmit)="f.form.valid && onSubmit()">
+                    <div class="alert alert-success" *ngIf="isLoggedIn">
+                        You are already signed in.
+                  </div>
                 </form>
             </div> 
     </div>
 </div>
-
-<form
-    *ngIf="!isLoggedIn"
-    name="form"
-    (ngSubmit)="f.form.valid && onSubmit()"
-    #f="ngForm"
-    novalidate
->
-   
-    <div class="form-group">
-    <button class="btn btn-primary btn-block">
-        Login
-    </button>
-    </div>
-    <div class="form-group">
-        <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="f.submitted && isLoginFailed"
-        >
-            Login failed: {{ errorMessage }}
-        </div>
-    </div>
-</form>

@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
     this.getUsers();
   }
 
-  onSelect(user: User):void{
+  toProfile(user: User):void{
     this.router.navigate(['/profile',user.id]);
   }
 }

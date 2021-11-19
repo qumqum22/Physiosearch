@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="navbar">
     <div>         
-        <a href="/">
+        <a href="/" >
             <span> Physiosearch </span>
         </a> 
     </div>
@@ -12,23 +12,26 @@
         <a href="/search">
             <span> Wyszukaj </span>
         </a>
-        <a href="/settings">
+        <a href="/settings" *ngIf="isLoggedIn">
             <span> Ustawienia </span>
         </a>
-        <a href="/profile">
+        <a routerLink="/profile/{{this.userId}}" *ngIf="isLoggedIn">
             <span> Profil </span>
         </a>
-        <a>
+        <a *ngIf="isLoggedIn">
             <span> Wiadomości </span>
         </a>
-        <a>
+        <a *ngIf="isLoggedIn">
             <span> Powiadomienia </span>
         </a>
-        <a href="/login">
+        <a href="/login"  *ngIf="!isLoggedIn">
             <span> Logowanie </span>
         </a>
-        <a href="/register">
+        <a href="/register"  *ngIf="!isLoggedIn">
             <span> Rejestracja </span>
+        </a>
+        <a href="/login" *ngIf="isLoggedIn" (click)="logout()">
+            <span>Logout</span>
         </a>
     </div>
 </mat-toolbar>

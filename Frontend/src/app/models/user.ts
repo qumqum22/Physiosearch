@@ -1,13 +1,11 @@
 export interface User {
     id: number;
+    title:string;
     name: string;
     surname: string;
-    profileImage: "assets/images/default-profile.jpg";
-    title:string;
-    description:string;
-    age: number;
     gender:string;
-    login:string;
-    password:string;
-    email: string;
+    birthday: Date;
+    profileImage: "assets/images/default-profile.jpg";
+    description:string;
+    physioID: string;
 }

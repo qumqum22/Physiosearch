@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/models/loginRequest';
 import { UserService } from 'src/app/services/user.service';
@@ -38,28 +37,10 @@ constructor(private userService: UserService,
     }
   }
 
-  // signIn():void{    
-  //   if(this.emailField.length > 4 
-  //     && this.passwordField.length > 4)
-  //     {
-  //       this.loginRequest.email = this.emailField;
-  //       this.loginRequest.password = this.passwordField;
-  //       console.log(this.loginRequest);
-  //       this.userService.loginUser(this.loginRequest).subscribe(
-  //         (data) => {
-  //           console.log(data);
-  //           this.router.navigateByUrl('/register')})
-  //       }
-  //       else{
-  //         alert("Wrong data");
-  //       }
-  //     }
-
   onSubmit(): void {
     const { formEmail, formPassword } = this.form;
     this.loginRequest.email = formEmail;
     this.loginRequest.password = formPassword;
-    console.log(this.loginRequest);
 
     this.authService.login(this.loginRequest).subscribe(
       data => {
@@ -69,9 +50,7 @@ constructor(private userService: UserService,
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        //console.log(data);
-        //console.log(this.roles);
-        this.reloadPage();
+        this.router.navigateByUrl('/profile/' + this.tokenStorage.getUser().userdataId).then(() => this.reloadPage());
       },
       err => {
         this.errorMessage = err.error.message;
