@@ -2,7 +2,6 @@ package com.rehabilitation.demo.payload;
 
 public class RegisterUserAccountRequest {
 
-    private Long id;
     private String physioId;
     private String email;
     private String password;
@@ -18,14 +17,6 @@ public class RegisterUserAccountRequest {
         this.password = password;
         this.name = name;
         this.surname = surname;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPhysioId() {

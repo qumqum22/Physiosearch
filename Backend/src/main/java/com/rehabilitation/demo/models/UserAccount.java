@@ -1,9 +1,15 @@
 package com.rehabilitation.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
 
 @Entity
 public class UserAccount {
+
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -15,6 +21,7 @@ public class UserAccount {
     private String seed;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name="user_data_user", referencedColumnName = "id")
     private UserData userdata;
 
@@ -28,6 +35,11 @@ public class UserAccount {
         this.salt = salt;
         this.seed = seed;
         this.userdata = userdata;
+    }
+
+    @PrePersist
+    public void encodePassword(){
+        password = PASSWORD_ENCODER.encode(password);
     }
 
     public String toString() {

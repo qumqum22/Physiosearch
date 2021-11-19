@@ -6,6 +6,7 @@ import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.payload.AddPhoneRequest;
 import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
+import com.rehabilitation.demo.payload.UserDataRequest;
 import com.rehabilitation.demo.services.AddressService;
 import com.rehabilitation.demo.services.PhonesService;
 import com.rehabilitation.demo.services.UserService;
@@ -41,8 +42,19 @@ public class UserController {
 
 
      @GetMapping("/users/{id}")
-     public UserData getSingleUser(@PathVariable("id") long id){
-        return userService.getSingleUser(id);
+     public UserDataRequest getSingleUser(@PathVariable("id") long id){
+        UserData userData = userService.getSingleUser(id);
+         return new UserDataRequest(
+                userData.getId(),
+                userData.getTitle(),
+                userData.getName(),
+                userData.getSurname(),
+                userData.getGender(),
+                userData.getBirthday(),
+                userData.getProfileImage(),
+                userData.getDescription(),
+                userData.getPhysioID()
+                );
      }
 
      @GetMapping("/users/address/{id}")

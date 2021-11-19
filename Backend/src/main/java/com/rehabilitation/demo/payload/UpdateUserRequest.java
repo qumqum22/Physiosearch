@@ -10,6 +10,13 @@ public class UpdateUserRequest {
     public UpdateUserRequest() {
     }
 
+    public UpdateUserRequest(String name, String surname, String title, String description) {
+        this.name = name;
+        this.surname = surname;
+        this.title = title;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }

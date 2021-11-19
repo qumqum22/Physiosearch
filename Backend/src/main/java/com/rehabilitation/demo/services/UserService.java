@@ -70,7 +70,7 @@ public class UserService {
             UserRights userPhysio = userRightsRepository.findByAccessRights("PHYSIO");
             newUserData.getRights().add(userPhysio);
         }
-        this.userDataRepository.save(newUserData);
+        this.userDataRepository.save(newUserData); // zapisuje do bazy podwojnie...
         this.userAccountRepository.save(userAccount);
         return true;
     }

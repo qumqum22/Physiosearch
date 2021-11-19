@@ -8,12 +8,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
-    @Bean
+    //@Bean
     CommandLineRunner initDatabase(UserAccountRepository userAccountRepository,
                                    UserDataRepository userDataRepository,
                                    PhonesRepository phonesRepository,
@@ -45,6 +45,10 @@ public class LoadDatabase {
             Address address3 = new Address("Krakow", "Królowej Jadwigi", "11", "32-089, Biały");
 
 
+            // duplikuje dane w tabeli z prawami
+            userData1.getRights().add(new UserRights("USER"));
+            userData1.getRights().add(new UserRights("MODERATOR"));
+            userData1.getRights().add(new UserRights("ADMINISTRATOR"));
 
 //            userData1.getAddress().add(address1);
 //            userData1.getAddress().add(address2);
