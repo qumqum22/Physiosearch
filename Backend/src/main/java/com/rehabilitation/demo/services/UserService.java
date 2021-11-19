@@ -37,14 +37,7 @@ public class UserService {
     }
 
     public boolean save(RegisterUserAccountRequest registerUserAccountRequest, boolean isPhysio) {
-        registerUserAccountRequest.setPassword(passwordEncoder.encode(registerUserAccountRequest.getPassword()));
-        if(!registerUserAccountRequest.getEmail().contains("@"))
-            return false;
-        if(!registerUserAccountRequest.getEmail().contains("."))
-            return false;
-        if(registerUserAccountRequest.getPassword().length() < 6) {
-            return false;
-        }
+
         String userName = registerUserAccountRequest.getName();
         String gender = (userName.endsWith("a")) ? "Female" : "Male";
         UserData newUserData = new UserData(
@@ -70,7 +63,7 @@ public class UserService {
             UserRights userPhysio = userRightsRepository.findByAccessRights("PHYSIO");
             newUserData.getRights().add(userPhysio);
         }
-        this.userDataRepository.save(newUserData); // zapisuje do bazy podwojnie...
+        this.userDataRepository.save(newUserData);
         this.userAccountRepository.save(userAccount);
         return true;
     }
