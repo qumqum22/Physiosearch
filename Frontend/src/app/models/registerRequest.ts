@@ -1,5 +1,5 @@
-export interface RegisterUserAccountRequest {
-    rehabilitantId: number;
+export interface RegisterRequest {
+    physioId: string;
     email: string;
     password: string;
     name: string;

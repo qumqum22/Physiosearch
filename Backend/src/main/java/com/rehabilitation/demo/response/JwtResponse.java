@@ -1,5 +1,7 @@
 package com.rehabilitation.demo.response;
 
+import com.rehabilitation.demo.models.UserData;
+
 import java.util.List;
 
 public class JwtResponse {
@@ -7,12 +9,14 @@ public class JwtResponse {
     private String type = "Bearer";
     private Long id;
     private String email;
+    private Long userdataId;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Long id, String email, List<String> roles) {
+    public JwtResponse(String accessToken, Long id, String email, Long userdataId, List<String> roles) {
         this.token = accessToken;
         this.id = id;
         this.email = email;
+        this.userdataId = userdataId;
         this.roles = roles;
     }
 
@@ -48,6 +52,13 @@ public class JwtResponse {
         this.email = email;
     }
 
+    public Long getUserdataId() {
+        return userdataId;
+    }
+
+    public void setUserdataId(Long userdataId) {
+        this.userdataId = userdataId;
+    }
 
     public List<String> getRoles() {
         return roles;

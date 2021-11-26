@@ -2,17 +2,20 @@ package com.rehabilitation.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Address {
+@Data
+public class Clinic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
     private String city;
     private String street;
     private String number;
@@ -21,15 +24,16 @@ public class Address {
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
     cascade = CascadeType.ALL,
-    mappedBy = "address")
+    mappedBy = "clinics")
     private Set<UserData> userdata = new HashSet<>();
 
 
-    public Address(){
+    public Clinic(){
 
     }
 
-    public Address(String city, String street, String number, String postalCode) {
+    public Clinic(String city, String name, String street, String number, String postalCode) {
+        this.name = name;
         this.city = city;
         this.street = street;
         this.number = number;
@@ -80,9 +84,22 @@ public class Address {
         return userdata;
     }
 
+    public void setUserdata(Set<UserData> userdata) {
+        this.userdata = userdata;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return "Address{" +
+        return "Clinic{" +
+                "name=" + name +
                 "id=" + id +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +

@@ -1,12 +1,13 @@
 package com.rehabilitation.demo.controllers;
 
-import com.rehabilitation.demo.models.Address;
+import com.rehabilitation.demo.models.Clinic;
 import com.rehabilitation.demo.models.Phones;
 import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.payload.AddPhoneRequest;
 import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
-import com.rehabilitation.demo.services.AddressService;
+import com.rehabilitation.demo.payload.UserDataRequest;
+import com.rehabilitation.demo.services.ClinicService;
 import com.rehabilitation.demo.services.PhonesService;
 import com.rehabilitation.demo.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +22,15 @@ public class UserController {
 
     private final UserService userService;
     private final PhonesService phonesService;
-    private final AddressService addressService;
+    private final ClinicService clinicService;
 
 
     public UserController(UserService userService,
                           PhonesService phonesService,
-                          AddressService addressService) {
+                          ClinicService clinicService) {
         this.userService = userService;
         this.phonesService = phonesService;
-        this.addressService = addressService;
+        this.clinicService = clinicService;
     }
 
     // UserAccount's actions.
@@ -41,14 +42,25 @@ public class UserController {
 
 
      @GetMapping("/users/{id}")
-     public UserData getSingleUser(@PathVariable("id") long id){
-        return userService.getSingleUser(id);
+     public UserDataRequest getSingleUser(@PathVariable("id") long id){
+        UserData userData = userService.getSingleUser(id);
+         return new UserDataRequest(
+                userData.getId(),
+                userData.getTitle(),
+                userData.getName(),
+                userData.getSurname(),
+                userData.getGender(),
+                userData.getBirthday(),
+                userData.getProfileImage(),
+                userData.getDescription(),
+                userData.getPhysioID()
+                );
      }
 
-     @GetMapping("/users/address/{id}")
-     public List<UserData> getUsersByAddress(@PathVariable("id") long id) {
-         Address tempAddress = addressService.getSingleAddress(id);
-         return userService.getUsersByAddress(tempAddress);}
+     @GetMapping("/users/clinic/{id}")
+     public List<UserData> getUsersByClinic(@PathVariable("id") long id) {
+         Clinic tempClinic = clinicService.getSingleClinic(id);
+         return userService.getUsersByClinic(tempClinic);}
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -104,23 +116,23 @@ public class UserController {
         phonesService.addPhone(phone);
     }
 
-    // UserAccount's addresses actions.
-    @GetMapping("/address/{id}")
-    public Address getSingleAddress(@PathVariable("id") long id){
-        return addressService.getSingleAddress(id);
+    // UserAccount's clinics actions.
+    @GetMapping("/clinic/{id}")
+    public Clinic getSingleClinic(@PathVariable("id") long id){
+        return clinicService.getSingleClinic(id);
     }
 
-    @GetMapping("/addresses/{user_id}")
-    public List<Address> allAddresses(@PathVariable("user_id") long user_id) {
+    @GetMapping("/clinics/{user_id}")
+    public List<Clinic> allClinics(@PathVariable("user_id") long user_id) {
         UserData tempUser = userService.getSingleUser(user_id);
-        //UserData addedUsers = addressService
-        return addressService.getAddresses(tempUser);
+        //UserData addedUsers = clinicService
+        return clinicService.getClinics(tempUser);
     }
-    @DeleteMapping("address/delete/{id}/{user_id}")
-    public void deleteAddress(@PathVariable("id") long id, @PathVariable("user_id") long user_id)
+    @DeleteMapping("clinic/delete/{id}/{user_id}")
+    public void deleteClinic(@PathVariable("id") long id, @PathVariable("user_id") long user_id)
     {
         System.out.println(id + " " + user_id);
-        Address addressToRemove = addressService.getSingleAddress(id);
-        addressService.deleteAddress(user_id, addressToRemove);
+        Clinic clinicToRemove = clinicService.getSingleClinic(id);
+        clinicService.deleteClinic(user_id, clinicToRemove);
     }
 }

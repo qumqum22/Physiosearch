@@ -2,6 +2,7 @@ package com.rehabilitation.demo.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rehabilitation.demo.models.UserAccount;
+import com.rehabilitation.demo.models.UserData;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -18,14 +20,16 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
+    private UserData userData;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String password,
+    public UserDetailsImpl(Long id, String email, String password, UserData userData,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.userData = userData;
         this.authorities = authorities;
     }
 
@@ -38,6 +42,7 @@ public class UserDetailsImpl implements UserDetails {
                 userAccount.getId(),
                 userAccount.getEmail(),
                 userAccount.getPassword(),
+                userAccount.getUserdata(),
                 authorities);
     }
 
@@ -63,6 +68,10 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public UserData getUserData() {
+        return userData;
     }
 
     @Override

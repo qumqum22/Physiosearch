@@ -1,5 +1,6 @@
 package com.rehabilitation.demo.models;
 import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Data
 public class UserData {
 
     @Id
@@ -58,10 +60,10 @@ public class UserData {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
             CascadeType.ALL})
-    @JoinTable(name="user_address",
-    joinColumns =  { @JoinColumn(name= "user_id")},
-    inverseJoinColumns = {@JoinColumn(name = "address_id") })
-    private Set<Address> address = new HashSet<>();
+    @JoinTable(name="userdata_clinic",
+    joinColumns =  { @JoinColumn(name= "userdata_id")},
+    inverseJoinColumns = {@JoinColumn(name = "clinic_id") })
+    private Set<Clinic> clinics = new HashSet<>();
 
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
@@ -71,9 +73,6 @@ public class UserData {
             joinColumns =  { @JoinColumn(name= "userdata_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_rights_id") })
     private Set<UserRights> rights = new HashSet<>();
-
-    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
-    private Set<Videos> videos;
 
     public UserData(){
 
@@ -91,10 +90,11 @@ public class UserData {
         this.physioID = physioID;
     }
 
-    public void removeAddress(Address addressToRemove){
-        address.remove(addressToRemove);
-        addressToRemove.getUserdata().remove(this);
+    public void removeClinic(Clinic clinicToRemove){
+        clinics.remove(clinicToRemove);
+        clinicToRemove.getUserdata().remove(this);
     }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -106,178 +106,8 @@ public class UserData {
                 ", profileImage='" + profileImage + '\'' +
                 ", description='" + description + '\'' +
                 ", externalContacts=" + externalContacts +
-                ", address=" + address +
+                ", clinics=" + clinics +
                 ", userRights=" + rights +
-                ", videos=" + videos +
                 '}';
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Phones> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(Set<Phones> phones) {
-        this.phones = phones;
-    }
-
-    public Set<ExternalContacts> getExternalContacts() {
-        return externalContacts;
-    }
-
-    public void setExternalContacts(Set<ExternalContacts> externalContacts) {
-        this.externalContacts = externalContacts;
-    }
-
-    public Set<Address> getAddress() {
-        return address;
-    }
-
-    public void setAddress(Set<Address> address) {
-        this.address = address;
-    }
-
-    public Set<UserRights> getRights() {
-        return rights;
-    }
-
-    public void setRights(Set<UserRights> userRights) {
-        this.rights = userRights;
-    }
-
-    public Set<Videos> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(Set<Videos> videos) {
-        this.videos = videos;
-    }
-
-    public Set<Comments> getCommentsAbout() {
-        return commentsAbout;
-    }
-
-    public void setCommentsAbout(Set<Comments> commentsAbout) {
-        this.commentsAbout = commentsAbout;
-    }
-
-    public Set<Comments> getCommentsOwned() {
-        return commentsOwned;
-    }
-
-    public void setCommentsOwned(Set<Comments> commentsOwned) {
-        this.commentsOwned = commentsOwned;
-    }
-
-    public UserAccount getUser() {
-        return userAccount;
-    }
-
-    public void setUser(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public String getPhysioID() {
-        return physioID;
-    }
-
-    public void setPhysioID(String rehabilitantID) {
-        this.physioID = rehabilitantID;
-    }
-
-    public UserAccount getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserAccount userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public Set<Specializations> getSpecializations() {
-        return specializations;
-    }
-
-    public void setSpecializations(Set<Specializations> specializations) {
-        this.specializations = specializations;
-    }
-
-    public Set<CzatMessages> getMessageSender() {
-        return messageSender;
-    }
-
-    public void setMessageSender(Set<CzatMessages> messageSender) {
-        this.messageSender = messageSender;
-    }
-
-    public Set<CzatMessages> getMessageReceiver() {
-        return messageReceiver;
-    }
-
-    public void setMessageReceiver(Set<CzatMessages> messageReceiver) {
-        this.messageReceiver = messageReceiver;
     }
 }

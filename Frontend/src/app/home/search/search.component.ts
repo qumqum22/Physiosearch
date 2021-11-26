@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
 
   rodzajeRehabilitacji: string[] = ["Terapia pocovidowa", "Kontuzje kończyn górnych","Kontuzje kończyn dolnych", "Schorzenia kręgosłupa", "Stawy"];
   miasta: string[] = ["Kraków", "Warszawa", "Katowice", "Gdańsk", "Kielce"];
+  tytuly: string[] = ["mgr inż.", "mgr", "dr", "inż."];
   constructor(private userService: UserService, private router: Router) { }
 
   getUsers():void {
@@ -36,7 +37,7 @@ export class SearchComponent implements OnInit {
     this.getUsers();
   }
 
-  onSelect(user: User):void{
+  toProfile(user: User):void{
     this.router.navigate(['/profile',user.id]);
   }
 }

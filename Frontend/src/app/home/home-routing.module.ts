@@ -7,6 +7,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StartComponent } from './start/start.component';
 import { SearchComponent } from './search/search.component';
+import { ConversationComponent } from './conversation/conversation.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent,
@@ -15,6 +16,7 @@ export const routes: Routes = [
     // { path: 'profile', component: ProfileComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'settings', component: SettingsComponent },
+    { path: 'conversation', component: ConversationComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'search', component: SearchComponent },

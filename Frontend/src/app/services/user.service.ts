@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../models/loginRequest';
-import { RegisterUserAccountRequest } from '../models/registerUserAccountRequest';
+import { RegisterRequest } from '../models/registerRequest';
 import { UpdateUserRequest } from '../models/updateUserRequest';
 import { User } from '../models/user';
 import { UserAccount } from '../models/userAccount';
@@ -23,11 +23,11 @@ export class UserService {
         return this.http.post<UserAccount>(`${this.apiServerUrl}/signin`, login);
     }
 
-    public registerUser(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
+    public registerUser(userAccount: RegisterRequest):Observable<UserAccount> {
         return this.http.post<UserAccount>(`${this.apiServerUrl}/registerUser`, userAccount);
       }
     
-      public registerPhysio(userAccount: RegisterUserAccountRequest):Observable<UserAccount> {
+      public registerPhysio(userAccount: RegisterRequest):Observable<UserAccount> {
         return this.http.post<UserAccount>(`${this.apiServerUrl}/registerPhysio`, userAccount);
       }
       

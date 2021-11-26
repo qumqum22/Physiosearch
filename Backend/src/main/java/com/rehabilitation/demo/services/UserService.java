@@ -1,6 +1,6 @@
 package com.rehabilitation.demo.services;
 
-import com.rehabilitation.demo.models.Address;
+import com.rehabilitation.demo.models.Clinic;
 import com.rehabilitation.demo.models.UserAccount;
 import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.models.UserRights;
@@ -28,8 +28,8 @@ public class UserService {
         return userDataRepository.findAll();
     }
 
-    public List<UserData> getUsersByAddress(Address address) {
-        return userDataRepository.findAllByAddress(address);}
+    public List<UserData> getUsersByClinic(Clinic clinic) {
+        return userDataRepository.findAllByClinics(clinic);}
 
     public UserData getSingleUser(long id) {
         return userDataRepository.findById(id)
@@ -37,14 +37,7 @@ public class UserService {
     }
 
     public boolean save(RegisterUserAccountRequest registerUserAccountRequest, boolean isPhysio) {
-        registerUserAccountRequest.setPassword(passwordEncoder.encode(registerUserAccountRequest.getPassword()));
-        if(!registerUserAccountRequest.getEmail().contains("@"))
-            return false;
-        if(!registerUserAccountRequest.getEmail().contains("."))
-            return false;
-        if(registerUserAccountRequest.getPassword().length() < 6) {
-            return false;
-        }
+
         String userName = registerUserAccountRequest.getName();
         String gender = (userName.endsWith("a")) ? "Female" : "Male";
         UserData newUserData = new UserData(

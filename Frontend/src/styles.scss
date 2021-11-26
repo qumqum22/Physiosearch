@@ -3,5 +3,15 @@
 body{
     margin:0;
 }
+
+.default-background{
+    background-image: url("./assets/images/login-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    min-height: auto;
+}
+
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
