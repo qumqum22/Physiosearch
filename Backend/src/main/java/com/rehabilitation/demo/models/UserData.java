@@ -60,10 +60,10 @@ public class UserData {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
             CascadeType.ALL})
-    @JoinTable(name="user_address",
-    joinColumns =  { @JoinColumn(name= "user_id")},
-    inverseJoinColumns = {@JoinColumn(name = "address_id") })
-    private Set<Address> address = new HashSet<>();
+    @JoinTable(name="userdata_clinic",
+    joinColumns =  { @JoinColumn(name= "userdata_id")},
+    inverseJoinColumns = {@JoinColumn(name = "clinic_id") })
+    private Set<Clinic> clinics = new HashSet<>();
 
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY,
@@ -90,10 +90,11 @@ public class UserData {
         this.physioID = physioID;
     }
 
-    public void removeAddress(Address addressToRemove){
-        address.remove(addressToRemove);
-        addressToRemove.getUserdata().remove(this);
+    public void removeClinic(Clinic clinicToRemove){
+        clinics.remove(clinicToRemove);
+        clinicToRemove.getUserdata().remove(this);
     }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -105,7 +106,7 @@ public class UserData {
                 ", profileImage='" + profileImage + '\'' +
                 ", description='" + description + '\'' +
                 ", externalContacts=" + externalContacts +
-                ", address=" + address +
+                ", clinics=" + clinics +
                 ", userRights=" + rights +
                 '}';
     }

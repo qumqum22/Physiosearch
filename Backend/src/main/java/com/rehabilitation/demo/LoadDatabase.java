@@ -5,8 +5,6 @@ import com.rehabilitation.demo.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 public class LoadDatabase {
@@ -17,7 +15,7 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(UserAccountRepository userAccountRepository,
                                    UserDataRepository userDataRepository,
                                    PhonesRepository phonesRepository,
-                                   AddressRepository addressRepository,
+                                   ClinicRepository clinicRepository,
                                    UserRightsRepository userRightsRepository)
     {
         return args-> {
@@ -40,9 +38,9 @@ public class LoadDatabase {
 //            UserAccount userAccount7 = new UserAccount("tcotr@interia.pl", "passowordpl", "123", "123", userData7);
 //            UserAccount userAccount8 = new UserAccount("kinlep@wp.pl", "passowordpl", "123", "123", userData8);
 
-            Address address1 = new Address("Krakow", "Armii Krajowej", "25", "30-150, Kraków");
-            Address address2 = new Address("Krakow", "Winnicka", "40", "30-394, Kraków");
-            Address address3 = new Address("Krakow", "Królowej Jadwigi", "11", "32-089, Biały");
+            Clinic clinic1 = new Clinic("Krakow","REHAMAX", "Armii Krajowej", "25", "30-150, Kraków");
+            Clinic clinic2 = new Clinic("Krakow", "PANAMEDIC","Winnicka", "40", "30-394, Kraków");
+            Clinic clinic3 = new Clinic("Krakow", "SUPERHIT","Królowej Jadwigi", "11", "32-089, Biały");
 
 
             // duplikuje dane w tabeli z prawami
@@ -50,17 +48,17 @@ public class LoadDatabase {
             userData1.getRights().add(new UserRights("MODERATOR"));
             userData1.getRights().add(new UserRights("ADMINISTRATOR"));
 
-//            userData1.getAddress().add(address1);
-//            userData1.getAddress().add(address2);
-//            userData2.getAddress().add(address2);
-//            userData2.getAddress().add(address3);
+//            userData1.getClinics().add(clinic1);
+//            userData1.getClinics().add(clinic2);
+//            userData2.getClinics().add(clinic2);
+//            userData2.getClinics().add(clinic3);
 //
 //     //add user references address
 //
-//            address1.getUserdata().add(userData1);
-//            address2.getUserdata().add(userData1);
-//            address2.getUserdata().add(userData2);
-//            address3.getUserdata().add(userData2);
+//            clinic1.getUserdata().add(userData1);
+//            clinic2.getUserdata().add(userData1);
+//            clinic2.getUserdata().add(userData2);
+//            clinic3.getUserdata().add(userData2);
 
             savePerson(userAccount1, userData1, userAccountRepository, userDataRepository);
             savePerson(userAccount2, userData2, userAccountRepository, userDataRepository);
@@ -81,9 +79,9 @@ public class LoadDatabase {
 //            log.info("Preloading " + phonesRepository.save(new Phones("456789999", userData2)));
 //            log.info("Preloading " + phonesRepository.save(new Phones("956478659", userData2)));
 //            log.info("Preloading " + phonesRepository.save(new Phones("456478659", userData2)));
-//            log.info("Preloading " + addressRepository.save(address1));
-//            log.info("Preloading " + addressRepository.save(address2));
-//            log.info("Preloading " + addressRepository.save(address3));
+//            log.info("Preloading " + addressRepository.save(clinic1));
+//            log.info("Preloading " + addressRepository.save(clinic2));
+//            log.info("Preloading " + addressRepository.save(clinic3));
 
         };
     }
