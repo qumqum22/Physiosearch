@@ -15,7 +15,7 @@
         <div class="contact-types col-8">
         <mat-tab-group dynamicHeight>
             <mat-tab label="About me">
-                <div class="addresses">
+                <div class="clinics">
                     <P>Description: </P>
                     <input [readonly]="!this.isSelfProfile" [(ngModel)]="descriptionField">
                     <button *ngIf="isSelfProfile" (click)="updateUser()" class="saveButton">save</button>
@@ -36,11 +36,11 @@
                 </form>   
             </mat-tab>
 
-            <mat-tab label="Addresses">
-                <div class="addresses">
-                    <p *ngFor="let address of addresses"> 
-                        {{address.city}}, ul.{{address.street}} {{address.number}}, ZIP: {{address.postalCode}}
-                        <button *ngIf="isSelfProfile" class="deleteButton" (click)="deleteAddress(address.id, profileUser.id)">X</button>
+            <mat-tab label="Clinics">
+                <div class="clinics">
+                    <p *ngFor="let clinic of clinics"> 
+                        {{clinic.city}}, ul.{{clinic.street}} {{clinic.number}}, ZIP: {{clinic.postalCode}}
+                        <button *ngIf="isSelfProfile" class="deleteButton" (click)="deleteClinic(clinic.id, profileUser.id)">X</button>
                     </p>
                 </div>
 

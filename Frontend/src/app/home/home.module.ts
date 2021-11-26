@@ -18,6 +18,7 @@ import { MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConversationComponent } from './conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfileComponent,
     SettingsComponent,
     StartComponent,
-    SearchComponent],
+    SearchComponent,
+    ConversationComponent],
   imports: [ 
     CommonModule,
     HomeRoutingModule,

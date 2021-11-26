@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { PhoneService } from 'src/app/services/phone.service';
-import { AddressService } from 'src/app/services/address.service';
+import { ClinicService } from 'src/app/services/clinic.service';
 import { User } from '../../models/user';
 import { Phone } from '../../models/phone';
 import { AddPhoneRequest } from '../../models/addPhoneRequest'
 import { NgForm } from '@angular/forms';
-import { Address } from 'src/app/models/address';
+import { Clinic } from 'src/app/models/clinic';
 import { UpdateUserRequest } from 'src/app/models/updateUserRequest';
 import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   phones: Phone[];
-  addresses: Address[];
+  clinics: Clinic[];
   titleField: string = "";
   nameField: string = "";
   surnameField: string = "";
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService,
     private phoneService: PhoneService,
-    private addressService: AddressService,
+    private clinicService: ClinicService,
     private token: TokenStorageService,
     private route: ActivatedRoute) { }
 
@@ -55,9 +55,9 @@ export class ProfileComponent implements OnInit {
       (response) => {
         this.profileUser = response;
         this.isSelfProfile = true; // (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
-        forkJoin([this.phoneService.getPhones(this.profileUser?.id), this.addressService.getAddresses(this.profileUser?.id)]).subscribe(results => {
+        forkJoin([this.phoneService.getPhones(this.profileUser?.id), this.clinicService.getClinics(this.profileUser?.id)]).subscribe(results => {
           this.phones = results[0];
-          this.addresses = results[1];
+          this.clinics = results[1];
         });
         this.getSignature();
       })
@@ -108,14 +108,14 @@ export class ProfileComponent implements OnInit {
       (response) => this.getPhones(this.profileUser.id))
   }
 
-  getAddresses(userId: number): void {
-    this.addressService.getAddresses(userId).subscribe(
-      (response) => this.addresses = response)
+  getClinics(userId: number): void {
+    this.clinicService.getClinics(userId).subscribe(
+      (response) => this.clinics = response)
   }
 
-  deleteAddress(addressId: number, userId: number): void {
-    this.addressService.deleteAddress(addressId, userId).subscribe(
-      (response) => this.getAddresses(userId))
+  deleteClinic(clinicId: number, userId: number): void {
+    this.clinicService.deleteClinic(clinicId, userId).subscribe(
+      (response) => this.getClinics(userId))
   }
 
 
