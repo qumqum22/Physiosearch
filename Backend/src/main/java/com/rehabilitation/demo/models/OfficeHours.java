@@ -1,9 +1,8 @@
 package com.rehabilitation.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.sql.Time;
 
 @Entity
@@ -16,12 +15,18 @@ public class OfficeHours {
     private Time open_time;
     private Time close_time;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="user_data_id")
+    private UserData userdata;
+
     public OfficeHours(){}
 
-    public OfficeHours(Integer day, Time open_time, Time close_time) {
+    public OfficeHours(Integer day, Time open_time, Time close_time, UserData userdata) {
         this.day = day;
         this.open_time = open_time;
         this.close_time = close_time;
+        this.userdata = userdata;
     }
 
     public Long getId() {
@@ -54,5 +59,13 @@ public class OfficeHours {
 
     public void setClose_time(Time close_time) {
         this.close_time = close_time;
+    }
+
+    public UserData getUserdata() {
+        return userdata;
+    }
+
+    public void setUserdata(UserData userdata) {
+        this.userdata = userdata;
     }
 }
