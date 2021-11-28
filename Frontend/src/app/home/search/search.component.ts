@@ -19,9 +19,10 @@ export class SearchComponent implements OnInit {
   nameField:string = "";
   surnameField:string = "";
 
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
+  physioType = new FormControl();
+  townType = new FormControl();
+  titleType = new FormControl();
+  
   rodzajeRehabilitacji: string[] = ["Terapia pocovidowa", "Kontuzje kończyn górnych","Kontuzje kończyn dolnych", "Schorzenia kręgosłupa", "Stawy"];
   miasta: string[] = ["Kraków", "Warszawa", "Katowice", "Gdańsk", "Kielce"];
   tytuly: string[] = ["mgr inż.", "mgr", "dr", "inż."];

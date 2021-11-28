@@ -2,11 +2,11 @@
     <div>
         <mat-form-field appearance="fill">
             <mat-label>Rodzaj rehabilitacji</mat-label>
-            <mat-select [formControl]="toppings" multiple>
+            <mat-select [formControl]="physioType" multiple>
               <mat-select-trigger>
-                {{toppings.value ? toppings.value[0] : ''}}
-                <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
-                  (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                {{physioType.value ? physioType.value[0] : ''}}
+                <span *ngIf="physioType.value?.length > 1" class="example-additional-selection">
+                  (+{{physioType.value.length - 1}} {{physioType.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger>
               <mat-option *ngFor="let dziedzina of rodzajeRehabilitacji" [value]="dziedzina">{{dziedzina}}</mat-option>
@@ -15,11 +15,11 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Miasto</mat-label>
-            <mat-select [formControl]="toppings" multiple>
+            <mat-select [formControl]="townType" multiple>
               <mat-select-trigger>
-                {{toppings.value ? toppings.value[0] : ''}}
-                <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
-                  (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                {{townType.value ? townType.value[0] : ''}}
+                <span *ngIf="townType.value?.length > 1" class="example-additional-selection">
+                  (+{{townType.value.length - 1}} {{townType.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger>
               <mat-option *ngFor="let miasto of miasta" [value]="miasto">{{miasto}}</mat-option>
@@ -28,11 +28,11 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Tytuł</mat-label>
-            <mat-select [formControl]="toppings" multiple>
+            <mat-select [formControl]="titleType" multiple>
               <mat-select-trigger>
-                {{toppings.value ? toppings.value[0] : ''}}
-                <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
-                  (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                {{titleType.value ? titleType.value[0] : ''}}
+                <span *ngIf="titleType.value?.length > 1" class="example-additional-selection">
+                  (+{{titleType.value.length - 1}} {{titleType.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger>
               <mat-option *ngFor="let tytul of tytuly" [value]="tytul">{{tytul}}</mat-option>

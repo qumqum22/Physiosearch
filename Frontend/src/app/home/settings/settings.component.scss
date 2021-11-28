@@ -1,6 +1,47 @@
-.settings-container{
-    margin: 1em;
-    h1{
-    margin:0;
+@import './../login/login.component.scss';
+
+.register-form{
+height: inherit;
+}
+
+.gender{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 60vh;
+
+    background: #FFFFFFBD 0% 0% no-repeat padding-box;
+    box-shadow: 0px 6px 6px #00000029;
+    border: 1px solid #707070;
+    border-radius: 45px;
+    opacity: 1;
+    .basic-info{
+            
+    width: 50%;
+        
+        input.ng-invalid{
+            border-color: #707070;
+        }
+        
+        .form-group{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .gender{
+            display: flex;
+            flex-direction: row;
+            justify-content:space-around;
+        }       
     }
 }
