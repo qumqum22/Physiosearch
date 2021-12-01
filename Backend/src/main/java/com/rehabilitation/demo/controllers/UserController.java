@@ -10,6 +10,7 @@ import com.rehabilitation.demo.payload.UserDataRequest;
 import com.rehabilitation.demo.services.ClinicService;
 import com.rehabilitation.demo.services.PhonesService;
 import com.rehabilitation.demo.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,21 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@AllArgsConstructor
 public class UserController {
 
 
     private final UserService userService;
     private final PhonesService phonesService;
     private final ClinicService clinicService;
-
-
-    public UserController(UserService userService,
-                          PhonesService phonesService,
-                          ClinicService clinicService) {
-        this.userService = userService;
-        this.phonesService = phonesService;
-        this.clinicService = clinicService;
-    }
 
     // UserAccount's actions.
     @GetMapping("/users")
@@ -116,23 +109,4 @@ public class UserController {
         phonesService.addPhone(phone);
     }
 
-    // UserAccount's clinics actions.
-    @GetMapping("/clinic/{id}")
-    public Clinic getSingleClinic(@PathVariable("id") long id){
-        return clinicService.getSingleClinic(id);
-    }
-
-    @GetMapping("/clinics/{user_id}")
-    public List<Clinic> allClinics(@PathVariable("user_id") long user_id) {
-        UserData tempUser = userService.getSingleUser(user_id);
-        //UserData addedUsers = clinicService
-        return clinicService.getClinics(tempUser);
-    }
-    @DeleteMapping("clinic/delete/{id}/{user_id}")
-    public void deleteClinic(@PathVariable("id") long id, @PathVariable("user_id") long user_id)
-    {
-        System.out.println(id + " " + user_id);
-        Clinic clinicToRemove = clinicService.getSingleClinic(id);
-        clinicService.deleteClinic(user_id, clinicToRemove);
-    }
 }

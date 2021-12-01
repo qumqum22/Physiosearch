@@ -18,7 +18,6 @@ public class UserAccount {
     private String email;
     private String password;
     private String salt;
-    private String seed;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
@@ -29,11 +28,10 @@ public class UserAccount {
 
     }
 
-    public UserAccount(String email, String password, String salt, String seed, UserData userdata) {
+    public UserAccount(String email, String password, String salt, UserData userdata) {
         this.email = email;
         this.password = password;
         this.salt = salt;
-        this.seed = seed;
         this.userdata = userdata;
     }
 
@@ -79,14 +77,6 @@ public class UserAccount {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public String getSeed() {
-        return seed;
-    }
-
-    public void setSeed(String seed) {
-        this.seed = seed;
     }
 
     public UserData getUserdata() {

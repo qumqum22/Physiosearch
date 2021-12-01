@@ -29,9 +29,9 @@ public class LoadDatabase {
 //            UserData userData6 = new UserData("inż.", "Jan", "Jeste","Male", null, null, "Witam w moim profilu",null);
 //            UserData userData7 = new UserData("inż.", "Tadeusz", "Cotr","Male", null, null, "Witam w moim profilu",null);
 //            UserData userData8 = new UserData(null, "Kinga", "Lepszy","Female", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null);
-            UserAccount userAccount1 = new UserAccount("piotr.pierwszy@example.com", "password", "123", "123", userData1);
-            UserAccount userAccount2 = new UserAccount("agnieszka.druga@example.com", "password123", "123", "123", userData2);
-            UserAccount userAccount3 = new UserAccount("michal@o2.pl", "passowordpl", "123", "123", userData3);
+            UserAccount userAccount1 = new UserAccount("piotr.pierwszy@example.com", "password", "123", userData1);
+            UserAccount userAccount2 = new UserAccount("agnieszka.druga@example.com", "password123", "123", userData2);
+            UserAccount userAccount3 = new UserAccount("michal@o2.pl", "passowordpl", "123", userData3);
 //            UserAccount userAccount4 = new UserAccount("marian.doniczka@gmail.com", "passoword1l", "123", "123", userData4);
 //            UserAccount userAccount5 = new UserAccount("krystyna24@wp.pl", "passowordpl", "123", "123", userData5);
 //            UserAccount userAccount6 = new UserAccount("JesteJan1@o2.pl", "passowordpl", "123", "123", userData6);
