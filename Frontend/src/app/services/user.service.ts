@@ -50,6 +50,7 @@ export class UserService {
         return this.http.put<User>(`${this.apiServerUrl}/users/update/${userId}`, updateUserData);
     }
 
+
     public deleteUser(userId: number): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/users/delete/${userId}`);
     }

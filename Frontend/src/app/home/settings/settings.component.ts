@@ -12,7 +12,8 @@ export class SettingsComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   roles: string[] = [];
-
+  genders: string[] = ["Male", "Female"];
+  selectedGender: string = "";
   currentUser: any;
   userData: User;
   
@@ -46,6 +47,7 @@ export class SettingsComponent implements OnInit {
     this.userService.getUser(this.currentUser.userdataId).subscribe(
       (response) => {
         this.userData = response;
+        this.selectedGender = this.userData.gender;
       })
   }
 
@@ -69,5 +71,4 @@ export class SettingsComponent implements OnInit {
     //     alert("Profile updated.")
     //   })
   }
-
 }

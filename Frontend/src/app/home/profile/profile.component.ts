@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(this.route.snapshot.params.id).subscribe(
       (response) => {
         this.profileUser = response;
-        this.isSelfProfile = true; // (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
+        this.isSelfProfile = (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
         forkJoin([this.phoneService.getPhones(this.profileUser?.id), this.clinicService.getClinics(this.profileUser?.id)]).subscribe(results => {
           this.phones = results[0];
           this.clinics = results[1];
