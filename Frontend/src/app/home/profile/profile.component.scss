@@ -28,7 +28,6 @@
         }
 
         .contact-types{
-            margin:auto;
             margin-left:0%;
             height: 90%;
             width: 45%;
@@ -38,6 +37,12 @@
                     width: 37vw;
                     height: 15vh;
                 }
+
+                .gender{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content:space-around;
+                }       
             }
             .contacts, .clinics{
                 margin:auto;
@@ -55,7 +60,10 @@
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
                     overflow: auto;
-                    height:7vh;
+                    margin:auto;
+                    margin-top: 1em;
+                    height: 20em;
+                    width: 100%;
                     p{
                         margin:0;
                     }
@@ -66,20 +74,6 @@
                    flex-direction: column;
                }
             }
-        }
-    }
-    .videos-bar{
-        margin:auto;
-        height: 30%;
-        width: 90%;
-        display:flex;
-        flex-direction: row;
-        border-style:solid;
-        border-radius: 1em;
-
-        iframe
-        {
-            margin: 1em;
         }
     }
 }

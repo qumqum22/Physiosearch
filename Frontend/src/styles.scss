@@ -2,16 +2,19 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 body{
     margin:0;
+    overflow: hidden;
 }
 
 .default-background{
     background-image: url("./assets/images/login-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
-    min-height: auto;
 }
 
+html, body{
+    background: rgb(255,196,252);
+    background: linear-gradient(90deg, rgba(255,196,252,1) 0%, rgba(255,255,255,1) 50%, rgba(255,196,252,1) 100%);
+}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

@@ -51,10 +51,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    this.userService.getUser(this.route.snapshot.params.id).subscribe( // logika weszła do srodka, byla osobno w ngOnInit, a getUser było metodą jak pozostałe
+    this.userService.getUser(this.route.snapshot.params.id).subscribe(
       (response) => {
         this.profileUser = response;
-        this.isSelfProfile = true; // (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
+        this.isSelfProfile = (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
         forkJoin([this.phoneService.getPhones(this.profileUser?.id), this.clinicService.getClinics(this.profileUser?.id)]).subscribe(results => {
           this.phones = results[0];
           this.clinics = results[1];

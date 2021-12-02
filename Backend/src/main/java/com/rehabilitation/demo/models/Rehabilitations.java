@@ -1,6 +1,5 @@
 package com.rehabilitation.demo.models;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -8,26 +7,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class UserRights {
+public class Rehabilitations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true)
-    private String accessRights;
+    private String rehabilitationType;
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
-            mappedBy = "rights")
+            mappedBy = "rehabilitations")
     private Set<UserData> userdata = new HashSet<>();
 
-    public UserRights(){
+    public Rehabilitations(){
 
     }
 
-    public UserRights(String accessRights) {
-        this.accessRights = accessRights;
+    public Rehabilitations(String rehabilitationType) {
+        this.rehabilitationType = rehabilitationType;
     }
 
     public Long getId() {
@@ -38,12 +37,12 @@ public class UserRights {
         this.id = id;
     }
 
-    public String getAccessRights() {
-        return accessRights;
+    public String getRehabilitationType() {
+        return rehabilitationType;
     }
 
-    public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
+    public void setRehabilitationType(String tagName) {
+        this.rehabilitationType = tagName;
     }
 
     public Set<UserData> getUserdata() {
