@@ -9,7 +9,7 @@
                   (+{{physioType.value.length - 1}} {{physioType.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger>
-              <mat-option *ngFor="let dziedzina of rodzajeRehabilitacji" [value]="dziedzina">{{dziedzina}}</mat-option>
+              <mat-option *ngFor="let rehabilitation of rehabilitations" [value]="rehabilitation">{{rehabilitation.rehabilitationType}}</mat-option>
             </mat-select>
           </mat-form-field>
 
