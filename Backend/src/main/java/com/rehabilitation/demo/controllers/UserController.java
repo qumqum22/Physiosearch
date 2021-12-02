@@ -2,6 +2,7 @@ package com.rehabilitation.demo.controllers;
 
 import com.rehabilitation.demo.models.Clinic;
 import com.rehabilitation.demo.models.Phones;
+import com.rehabilitation.demo.models.Rehabilitations;
 import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.payload.AddPhoneRequest;
 import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
@@ -9,6 +10,7 @@ import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.payload.UserDataRequest;
 import com.rehabilitation.demo.services.ClinicService;
 import com.rehabilitation.demo.services.PhonesService;
+import com.rehabilitation.demo.services.RehabilitationsService;
 import com.rehabilitation.demo.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class UserController {
     private final UserService userService;
     private final PhonesService phonesService;
     private final ClinicService clinicService;
+    private final RehabilitationsService rehabilitationsService;
 
     // UserAccount's actions.
     @GetMapping("/users")
@@ -108,5 +111,13 @@ public class UserController {
         System.out.println(phone);
         phonesService.addPhone(phone);
     }
+
+
+    // Rehabilitations actions.
+    @GetMapping("/rehabilitations")
+    public List<Rehabilitations> allRehabilitations() {
+        return rehabilitationsService.getSpecializations();
+    }
+
 
 }

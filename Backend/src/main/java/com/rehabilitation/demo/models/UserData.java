@@ -38,10 +38,6 @@ public class UserData {
     private Set<OfficeHours> officeHours = new HashSet<>();
 
     //@JsonManagedReference
-    @OneToMany(mappedBy = "userdata",cascade=CascadeType.ALL)
-    private Set<Specializations> specializations = new HashSet<>();
-
-    //@JsonManagedReference
     @OneToMany(mappedBy = "assigned",cascade=CascadeType.ALL)
     private Set<Comments> commentsAbout = new HashSet<>();
 
@@ -59,6 +55,15 @@ public class UserData {
 
     @OneToMany(mappedBy = "userdata")
     private Set<ExternalContacts> externalContacts;
+
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.ALL})
+    @JoinTable(name="userdata_rehabilitations",
+    joinColumns =  { @JoinColumn(name= "userdata_id")},
+    inverseJoinColumns = {@JoinColumn(name = "rehabilitation_id")})
+    private Set<Rehabilitations> rehabilitations = new HashSet<>();
 
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY,

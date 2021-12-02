@@ -1,9 +1,9 @@
 package com.rehabilitation.demo.repository;
 
-import com.rehabilitation.demo.models.Specializations;
+import com.rehabilitation.demo.models.Rehabilitations;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpecializationsRepository extends JpaRepository<Specializations, Long> {
+public interface RehabilitationsRepository extends JpaRepository<Rehabilitations, Long> {
 }
