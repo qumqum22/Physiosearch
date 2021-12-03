@@ -8,7 +8,7 @@ import { AddPhoneRequest } from '../../models/addPhoneRequest'
 import { NgForm } from '@angular/forms';
 import { Clinic } from 'src/app/models/clinic';
 import { UpdateUserRequest } from 'src/app/models/updateUserRequest';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { forkJoin } from 'rxjs';
 
@@ -47,7 +47,8 @@ export class ProfileComponent implements OnInit {
     private phoneService: PhoneService,
     private clinicService: ClinicService,
     private token: TokenStorageService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
@@ -118,5 +119,8 @@ export class ProfileComponent implements OnInit {
       (response) => this.getClinics(userId))
   }
 
+  toClinic(clinicId: number): void {
+    this.router.navigate(['/clinic',clinicId]);
+  }
 
 }

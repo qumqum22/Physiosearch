@@ -41,9 +41,9 @@ export class UserService {
         return this.http.get<User>(`${this.apiServerUrl}/users/${id}`);
     }
 
-    public getUsersByAddress(id: number):Observable<User[]> {
+    public getUsersByClinic(id: number):Observable<User[]> {
         
-        return this.http.get<User[]>(`${this.apiServerUrl}/users/address/${id}`);
+        return this.http.get<User[]>(`${this.apiServerUrl}/users/clinic/${id}`);
     }
 
     public updateUser(userId: number, updateUserData: UpdateUserRequest):Observable<User> {

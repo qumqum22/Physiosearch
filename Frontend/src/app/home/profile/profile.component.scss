@@ -38,13 +38,6 @@
                     height: 15vh;
                 }
 
-                .gender{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content:space-around;
-                }       
-            }
-            .contacts, .clinics{
                 margin:auto;
                 margin-top: 1em;
                 height: 20em;
@@ -67,11 +60,6 @@
                     p{
                         margin:0;
                     }
-               }
-
-               .hours{
-                   display:flex;
-                   flex-direction: column;
                }
             }
         }

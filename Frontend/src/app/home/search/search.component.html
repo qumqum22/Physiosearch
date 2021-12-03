@@ -35,9 +35,10 @@
                   (+{{titleType.value.length - 1}} {{titleType.value?.length === 2 ? 'other' : 'others'}})
                 </span>
               </mat-select-trigger>
-              <mat-option *ngFor="let tytul of tytuly" [value]="tytul">{{tytul}}</mat-option>
+              <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
             </mat-select>
           </mat-form-field>
+
     </div>
 </div>
 

@@ -1,15 +1,12 @@
 package com.rehabilitation.demo.controllers;
 
 import com.rehabilitation.demo.models.Clinic;
-import com.rehabilitation.demo.models.Phones;
 import com.rehabilitation.demo.models.Rehabilitations;
 import com.rehabilitation.demo.models.UserData;
-import com.rehabilitation.demo.payload.AddPhoneRequest;
 import com.rehabilitation.demo.payload.RegisterUserAccountRequest;
 import com.rehabilitation.demo.payload.UpdateUserRequest;
 import com.rehabilitation.demo.payload.UserDataRequest;
 import com.rehabilitation.demo.services.ClinicService;
-import com.rehabilitation.demo.services.PhonesService;
 import com.rehabilitation.demo.services.RehabilitationsService;
 import com.rehabilitation.demo.services.UserService;
 import lombok.AllArgsConstructor;
@@ -25,7 +22,6 @@ public class UserController {
 
 
     private final UserService userService;
-    private final PhonesService phonesService;
     private final ClinicService clinicService;
     private final RehabilitationsService rehabilitationsService;
 
@@ -79,39 +75,11 @@ public class UserController {
         return userService.updateProfile(id,updateUserRequest);
     }
 
-
     @DeleteMapping("settings/delete/{id}")
     public void deleteUser(@PathVariable("id") long id)
     {
         userService.deleteUser(id);
     }
-
-
-    // UserAccount's phones actions.
-
-    @GetMapping("/phones/{user_id}")
-    public List<Phones> allPhones(@PathVariable("user_id") long user_id) {
-        UserData tempUser = userService.getSingleUser(user_id);
-        return phonesService.getPhones(tempUser);
-    }
-
-    @DeleteMapping("phones/delete/{id}")
-    public void deletePhone(@PathVariable("id") long id)
-    {
-        phonesService.deletePhone(id);
-    }
-
-    @PostMapping("/phones/add")
-    public void addPhone(@RequestBody AddPhoneRequest addPhoneRequest)
-    {
-        System.out.println(addPhoneRequest.getId() + " " +addPhoneRequest.getPhoneNumber());
-        UserData user = userService.getSingleUser(addPhoneRequest.getId());
-        System.out.println(user);
-        Phones phone = new Phones(addPhoneRequest.getPhoneNumber(), user);
-        System.out.println(phone);
-        phonesService.addPhone(phone);
-    }
-
 
     // Rehabilitations actions.
     @GetMapping("/rehabilitations")

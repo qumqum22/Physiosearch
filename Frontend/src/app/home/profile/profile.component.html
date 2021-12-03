@@ -41,6 +41,7 @@
                     <p *ngFor="let clinic of clinics"> 
                         {{clinic.city}}, ul.{{clinic.street}} {{clinic.number}}, ZIP: {{clinic.postalCode}}
                         <button *ngIf="isSelfProfile" class="deleteButton" (click)="deleteClinic(clinic.id, profileUser.id)">X</button>
+                        <button class="deleteButton" (click)="toClinic(clinic.id)"> Visit clinic page</button>
                     </p>
                 </div>
 

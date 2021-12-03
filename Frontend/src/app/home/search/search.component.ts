@@ -25,9 +25,9 @@ export class SearchComponent implements OnInit {
   physioType = new FormControl();
   townType = new FormControl();
   titleType = new FormControl();
-  miasta: string[] = ["Kraków", "Warszawa", "Katowice", "Gdańsk", "Kielce"];
-  tytuly: string[] = ["mgr inż.", "mgr", "dr", "inż."];
 
+  miasta: string[] = ["Kraków", "Warszawa", "Katowice", "Gdańsk", "Kielce"];
+  titles: string[] = ["mgr inż.", "mgr", "dr", "inż."];
   
   constructor(private userService: UserService, 
     private rehabilitationService: RehabilitationService,
