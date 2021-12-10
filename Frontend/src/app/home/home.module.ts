@@ -20,6 +20,8 @@ import { MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConversationComponent } from './conversation/conversation.component';
 import { ClinicComponent } from './clinic/clinic.component';
+import { ErrorComponent } from './error/error.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ClinicComponent } from './clinic/clinic.component';
     StartComponent,
     SearchComponent,
     ConversationComponent,
-    ClinicComponent],
+    ClinicComponent,
+    ErrorComponent,
+    NotfoundComponent],
   imports: [ 
     CommonModule,
     HomeRoutingModule,

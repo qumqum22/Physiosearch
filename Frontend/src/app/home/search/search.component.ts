@@ -15,7 +15,15 @@ import { FormControl} from '@angular/forms';
 
 export class SearchComponent implements OnInit {
   
-  users: User[] = [];
+  private readonly pageSize = 5;
+  private users: User[] = [];
+
+  usersPage: User[] = [];
+  page = 1;
+  maxPage: number;
+  isPreviousDisabled: boolean;
+  isNextDisabled: boolean;
+
   rehabilitations: Rehabilitation[] = [];
 
   titleField: string = "";
@@ -41,16 +49,38 @@ export class SearchComponent implements OnInit {
   
   ngOnInit(): void {
     this.rehabilitationService.getRehabilitations().subscribe(
-      (data => {
+      data => {
         this.rehabilitations = data
         this.userService.getUsers().subscribe(
-          (data => this.users = data)
+          data => {
+            this.users = data;
+            this.maxPage = Math.floor(this.users.length / 5 + 1);
+            this.onPageChange();
+          }
         )
-      })
+      }
     )
   }
 
   toProfile(user: User):void{
     this.router.navigate(['/profile',user.id]);
+  }
+
+  onPageChange(): void{
+    const startIndex = (this.page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.usersPage = this.users.slice(startIndex, endIndex);
+    this.isPreviousDisabled = this.page === 1;
+    this.isNextDisabled = this.page === this.maxPage;
+  }
+
+  onPrevious(): void{
+    this.page -= 1;
+    this.onPageChange();
+  }
+
+  onNext(): void{
+    this.page += 1;
+    this.onPageChange();
   }
 }

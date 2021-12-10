@@ -42,47 +42,58 @@
     </div>
 </div>
 
-<div *ngFor="let user of users">
-    <div class="card">
-        <div class="row">
-            <div class=" col-3 p-4">
-                <img class="profile-img" *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
-                <img class="profile-img" *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-                <h5>{{user.title}} {{user.name}} {{user.surname}}</h5>
-                <h6> Miejscowosc</h6>
-            </div>
-            <div class="col-6 p-4">
-                <p> Rating: 0.0 / 5.0 </p>
-                <h5>{{user.description}}</h5>
-                <h5>Specjalizacja: Schorzenia kręgosłupa </h5>
-                <button class="yellowButton" (click)="toProfile(user)"> Visit me </button>
-            </div>
-            <div class="col-3 p-4">
-                <h5>Godziny otwarcia:</h5>
-                <td>
-                    <tr>
-                       <td colspan="2">Poniedziałek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Wtorek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Środa </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Czwartek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Piątek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Sobota </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Niedziela </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
-                    </tr>
-                </td>
-            </div>
-        </div>
-    </div>
+<div class="d-flex justify-content-center">
+  <button class="btn btn-primary" (click)="onPrevious()" [disabled]="isPreviousDisabled"> Wcześniejsza </button>
+  <span>{{page}} z {{maxPage}}</span>
+  <button class="btn btn-primary" (click)="onNext()" [disabled]="isNextDisabled"> Następna </button>
+</div>
+<div style="overflow-y:scroll; overflow-x:hidden; max-height: 70vh; width: 50%; margin:auto;">
+  <div *ngFor="let user of usersPage">
+      <div class="card">
+          <div class="row">
+              <div class="col-3 p-4">
+                  <img class="profile-img" *ngIf="user.profileImage" src="{{user.profileImage}}" alt="" class="profile-img">
+                  <img class="profile-img" *ngIf="!user.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
+                  <h5>{{user.title}} {{user.name}} {{user.surname}}</h5>
+              </div>
+              <div class="col-6 p-4">
+                  <p> Średnia ocena: 0.0 / 5.0 </p>
+                  <h5>{{user.description}}</h5>
+                  <h5>Specjalizacja: Schorzenia kręgosłupa </h5>
+                  <button class="btn btn-primary" (click)="toProfile(user)"> Przejdź do profilu </button>
+              </div>
+              <div class="col-3 p-4">
+                  <h5>Godziny otwarcia:</h5>
+                  <td>
+                      <tr>
+                        <td colspan="2">Poniedziałek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Wtorek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Środa </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Czwartek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Piątek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Sobota </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">Niedziela </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                      </tr>
+                  </td>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <button class="btn btn-primary" (click)="onPrevious()" [disabled]="isPreviousDisabled"> Wcześniejsza </button>
+  <span>{{page}} z {{maxPage}}</span>
+  <button class="btn btn-primary" (click)="onNext()" [disabled]="isNextDisabled"> Następna </button>
 </div>

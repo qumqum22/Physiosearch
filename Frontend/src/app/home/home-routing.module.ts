@@ -9,19 +9,21 @@ import { ProfileComponent } from './profile/profile.component';
 import { StartComponent } from './start/start.component';
 import { SearchComponent } from './search/search.component';
 import { ConversationComponent } from './conversation/conversation.component';
+// import {ErrorComponent} from './error/error.component';
+import {NotfoundComponent} from './notfound/notfound.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent,
     children: [
-    { path: '', component: StartComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'clinic/:id', component: ClinicComponent },
     { path: 'settings', component: SettingsComponent },
     { path: 'conversation', component: ConversationComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
     { path: 'search', component: SearchComponent },
-    //{ path: '**', component: ErrorPageComponent}
+    { path: '', component: StartComponent },
+    { path: '**', component: NotfoundComponent}
     ]
     },
   ]

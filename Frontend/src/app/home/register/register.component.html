@@ -3,17 +3,18 @@
         <div class="login col-10">   
             <form class="register-form col-12" *ngIf="!isLoggedIn" name="userForm" #f="ngForm" novalidate
                 (ngSubmit)="f.form.valid && registerUser()">
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 2vh">
                     <div class="col-2"></div>
                     <h4 class="col-8 row justify-content-around">Register User account</h4> 
                     <div class="col-2"></div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control col-6 row justify-content-around" name="email" placeholder="Email"
-                        [(ngModel)]="userForm.Email" required #email="ngModel" 
+                        [(ngModel)]="userForm.Email" required #email="ngModel" email
                     />
                     <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
-                        Email is required!
+                        <div *ngIf="email.errors.email">Wrong format of email</div>
+                        
                     </div>
                 </div>
 
@@ -34,7 +35,7 @@
                         [(ngModel)]="userForm.ConfirmPassword" required minlength="6" #confirmPassword="ngModel"
                     />
                     <div  role="alert" *ngIf="confirmPassword != password && f.submitted" style="color: red;">
-                        <div *ngIf="confirmPassword != password">Password is different (need fix)</div>
+                        <div *ngIf="userForm.ConfirmPassword != userForm.Password">Password is different (need fix)</div>
                     </div>
                 </div>
 
@@ -76,7 +77,7 @@
         <div class="login col-10">   
             <form class="register-form col-12" *ngIf="!isLoggedIn" name="physioForm" #f="ngForm" novalidate
                 (ngSubmit)="f.form.valid && registerUser()">
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 2vh">
                     <div class="col-2"></div>
                     <h4 class="col-8 row justify-content-around">Register Physiotherapist account</h4> 
                     <div class="col-2"></div>

@@ -4,15 +4,15 @@
                 <form class=" col-12 column justify-content-center" *ngIf="!isLoggedIn" name="form" #f="ngForm" novalidate
                     (ngSubmit)="f.form.valid && onSubmit()">
                     <div class="buttons">
-                        <div class="form-group">
-                            <h4>Sign in to your account</h4> 
+                        <div class="form-group" style="margin-top: 2vh">
+                            <h4>Zaloguj się na konto</h4> 
                         </div>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control row col-6 justify-content-around" name="email" placeholder="Email"
                         [(ngModel)]="form.formEmail" required #email="ngModel"/>
                         <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
-                            Email is required!
+                            Email jest niepoprawny
                         </div>
                     </div>
                     <div class="form-group">
@@ -20,13 +20,13 @@
                             [(ngModel)]="form.formPassword" required minlength="6" #password="ngModel"
                         />
                         <div role="alert" *ngIf="password.errors && f.submitted" style="color: red;">
-                            <div *ngIf="password.errors.required">Password is required</div>
+                            <div *ngIf="password.errors.required">Haslo jest wymagane</div>
                         </div>
                     </div>
                     <div class="buttons">
                         <div class="form-group">
                             <button class="btn btn-primary btn-block">
-                                Sign in
+                                Zaloguj się
                             </button>
                         </div>
                         <div class="col-1">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <button type="button" routerLink="/register" class="btn btn-primary btn-block">
-                                Register
+                                Zarejestruj się
                             </button>
                         </div>
                     </div>
