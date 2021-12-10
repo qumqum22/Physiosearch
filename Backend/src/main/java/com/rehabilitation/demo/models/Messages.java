@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class CzatMessages {
+public class Messages {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,9 +23,9 @@ public class CzatMessages {
     @JoinColumn(name="user_data_messageReceiver")
     private UserData receiver;
 
-    public CzatMessages(){}
+    public Messages(){}
 
-    public CzatMessages(String comment, Date commentDate, UserData sender, UserData receiver) {
+    public Messages(String comment, Date commentDate, UserData sender, UserData receiver) {
         this.comment = comment;
         this.commentDate = commentDate;
         this.sender = sender;

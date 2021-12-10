@@ -18,9 +18,10 @@ public class ClinicController {
 
     private final ClinicService clinicService;
     private final UserService userService;
+
     // UserAccount's clinics actions.
     @GetMapping("/clinic/{id}")
-    public Clinic getSingleClinic(@PathVariable("id") long id){
+    public Clinic getSingleClinic(@PathVariable("id") long id) {
         return clinicService.getSingleClinic(id);
     }
 
@@ -30,9 +31,9 @@ public class ClinicController {
         //UserData addedUsers = clinicService
         return clinicService.getClinics(tempUser);
     }
+
     @DeleteMapping("clinic/delete/{id}/{user_id}")
-    public void deleteClinic(@PathVariable("id") long id, @PathVariable("user_id") long user_id)
-    {
+    public void deleteClinic(@PathVariable("id") long id, @PathVariable("user_id") long user_id) {
         System.out.println(id + " " + user_id);
         Clinic clinicToRemove = clinicService.getSingleClinic(id);
         clinicService.deleteClinic(user_id, clinicToRemove);

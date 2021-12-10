@@ -17,7 +17,6 @@ public class UserAccount {
     @Column(unique=true)
     private String email;
     private String password;
-    private String salt;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
@@ -28,10 +27,9 @@ public class UserAccount {
 
     }
 
-    public UserAccount(String email, String password, String salt, UserData userdata) {
+    public UserAccount(String email, String password, UserData userdata) {
         this.email = email;
         this.password = password;
-        this.salt = salt;
         this.userdata = userdata;
     }
 
@@ -69,14 +67,6 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public UserData getUserdata() {

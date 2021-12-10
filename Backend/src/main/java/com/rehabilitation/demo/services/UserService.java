@@ -53,7 +53,6 @@ public class UserService {
         UserAccount userAccount = new UserAccount(
                 registerUserAccountRequest.getEmail(),
                 registerUserAccountRequest.getPassword(),
-                "salt",
                 newUserData);
 
         UserRights userUser = userRightsRepository.findByAccessRights("USER");

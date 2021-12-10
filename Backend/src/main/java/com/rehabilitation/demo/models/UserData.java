@@ -47,11 +47,11 @@ public class UserData {
 
     //@JsonManagedReference
     @OneToMany(mappedBy = "sender",cascade=CascadeType.ALL)
-    private Set<CzatMessages> messageSender = new HashSet<>();
+    private Set<Messages> messageSender = new HashSet<>();
 
     //@JsonManagedReference
     @OneToMany(mappedBy = "receiver",cascade=CascadeType.ALL)
-    private Set<CzatMessages> messageReceiver = new HashSet<>();
+    private Set<Messages> messageReceiver = new HashSet<>();
 
     @OneToMany(mappedBy = "userdata")
     private Set<ExternalContacts> externalContacts;
