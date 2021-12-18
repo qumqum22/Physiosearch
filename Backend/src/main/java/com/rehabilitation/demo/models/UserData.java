@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
 public class UserData {
 
     @Id
@@ -102,6 +101,166 @@ public class UserData {
     public void removeClinic(Clinic clinicToRemove){
         clinics.remove(clinicToRemove);
         clinicToRemove.getUserdata().remove(this);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhysioID() {
+        return physioID;
+    }
+
+    public void setPhysioID(String physioID) {
+        this.physioID = physioID;
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public Set<Phones> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phones> phones) {
+        this.phones = phones;
+    }
+
+    public Set<OfficeHours> getOfficeHours() {
+        return officeHours;
+    }
+
+    public void setOfficeHours(Set<OfficeHours> officeHours) {
+        this.officeHours = officeHours;
+    }
+
+    public Set<Comments> getCommentsAbout() {
+        return commentsAbout;
+    }
+
+    public void setCommentsAbout(Set<Comments> commentsAbout) {
+        this.commentsAbout = commentsAbout;
+    }
+
+    public Set<Comments> getCommentsOwned() {
+        return commentsOwned;
+    }
+
+    public void setCommentsOwned(Set<Comments> commentsOwned) {
+        this.commentsOwned = commentsOwned;
+    }
+
+    public Set<Messages> getMessageSender() {
+        return messageSender;
+    }
+
+    public void setMessageSender(Set<Messages> messageSender) {
+        this.messageSender = messageSender;
+    }
+
+    public Set<Messages> getMessageReceiver() {
+        return messageReceiver;
+    }
+
+    public void setMessageReceiver(Set<Messages> messageReceiver) {
+        this.messageReceiver = messageReceiver;
+    }
+
+    public Set<ExternalContacts> getExternalContacts() {
+        return externalContacts;
+    }
+
+    public void setExternalContacts(Set<ExternalContacts> externalContacts) {
+        this.externalContacts = externalContacts;
+    }
+
+    public Set<Rehabilitations> getRehabilitations() {
+        return rehabilitations;
+    }
+
+    public void setRehabilitations(Set<Rehabilitations> rehabilitations) {
+        this.rehabilitations = rehabilitations;
+    }
+
+    public Set<Clinic> getClinics() {
+        return clinics;
+    }
+
+    public void setClinics(Set<Clinic> clinics) {
+        this.clinics = clinics;
+    }
+
+    public Set<UserRights> getRights() {
+        return rights;
+    }
+
+    public void setRights(Set<UserRights> rights) {
+        this.rights = rights;
     }
 
     @Override

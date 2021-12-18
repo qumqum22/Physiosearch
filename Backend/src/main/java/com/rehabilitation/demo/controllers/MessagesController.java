@@ -2,6 +2,7 @@ package com.rehabilitation.demo.controllers;
 
 import com.rehabilitation.demo.models.Comments;
 import com.rehabilitation.demo.models.UserData;
+import com.rehabilitation.demo.payload.CommentPostRequest;
 import com.rehabilitation.demo.services.MessagesService;
 import com.rehabilitation.demo.services.UserService;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ public class MessagesController {
     private final MessagesService messagesService;
 
     @GetMapping("/users/comments/{id}")
-    public List<Comments> getCommentsByCommentsAbout(@PathVariable("id") long id) {
+    public List<CommentPostRequest> getCommentsByCommentsAbout(@PathVariable("id") long id) {
         UserData userdata = userService.getSingleUser(id);
-        return messagesService.getCommentsAboutByUserdata(userdata);
+        return messagesService.getCommentsAboutByAssigned(userdata);
     }
 }

@@ -36,6 +36,7 @@ public class UserController {
      @GetMapping("/users/{id}")
      public UserDataRequest getSingleUser(@PathVariable("id") long id){
         UserData userData = userService.getSingleUser(id);
+        
          return new UserDataRequest(
                 userData.getId(),
                 userData.getTitle(),

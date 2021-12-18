@@ -17,5 +17,4 @@ public interface UserDataRepository extends JpaRepository<UserData, Long> {
 
     void deleteClinicById(long id);
 
-    List<Comments> findAllByCommentsAbout(UserData userdata);
 }

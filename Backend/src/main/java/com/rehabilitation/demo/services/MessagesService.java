@@ -1,14 +1,15 @@
 package com.rehabilitation.demo.services;
 
-import com.rehabilitation.demo.models.Clinic;
 import com.rehabilitation.demo.models.Comments;
 import com.rehabilitation.demo.models.UserData;
+import com.rehabilitation.demo.payload.CommentPostRequest;
 import com.rehabilitation.demo.repository.CommentsRepository;
 import com.rehabilitation.demo.repository.UserDataRepository;
-import com.rehabilitation.demo.repository.MessagesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,14 +17,24 @@ import java.util.List;
 public class MessagesService {
 
     private final UserDataRepository userDataRepository;
-    private final MessagesRepository chatMessagesRepository;
     private final CommentsRepository commentsRepository;
 
-    public List<Comments> getCommentsAboutByUserdata(UserData userdata) {
-        return userDataRepository.findAllByCommentsAbout(userdata);
+    public List<CommentPostRequest> getCommentsAboutByAssigned(UserData userdata) {
+        List<CommentPostRequest> resultList = new ArrayList<>(Collections.emptyList());
+        List<Comments> commentContent = commentsRepository.findAllByAssigned(userdata);
+        for (Comments comment : commentContent) {
+            UserData userData = userDataRepository.findUserDataById(comment.getAuthor().getId());
+            resultList.add(new CommentPostRequest(
+                    comment.getId(),
+                    comment.getComment(),
+                    comment.getCommentDate(),
+                    comment.getRate(),
+                    userData.getId(),
+                    userData.getName(),
+                    userData.getSurname(),
+                    userData.getProfileImage()
+            ));
+        }
+        return resultList;
     }
-
-
-//    public List<UserData> getUsersByClinic(Clinic clinic) {
-//        return userDataRepository.findAllByClinics(clinic);}
 }

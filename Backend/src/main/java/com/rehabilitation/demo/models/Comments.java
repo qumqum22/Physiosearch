@@ -18,12 +18,12 @@ public class Comments {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_commentsAbout")
-    private UserData author;
+    private UserData assigned;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_data_commentsOwned")
-    private UserData assigned;
+    private UserData author;
 
     public Comments(){}
 

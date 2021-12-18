@@ -35,11 +35,8 @@ public class PhonesController {
     @PostMapping("/phones/add")
     public void addPhone(@RequestBody AddPhoneRequest addPhoneRequest)
     {
-        System.out.println(addPhoneRequest.getId() + " " +addPhoneRequest.getPhoneNumber());
         UserData user = userService.getSingleUser(addPhoneRequest.getId());
-        System.out.println(user);
         Phones phone = new Phones(addPhoneRequest.getPhoneNumber(), user);
-        System.out.println(phone);
         phonesService.addPhone(phone);
     }
 }
