@@ -1,5 +1,5 @@
-<div class="loginpage default-background ">
-    <div class="login-container row justify-content-around">
+<div class="loginpage">
+    <div class="default-form-1 row justify-content-around">
             <div class="login col-10" >
                 <form class=" col-12 column justify-content-center" *ngIf="!isLoggedIn" name="form" #f="ngForm" novalidate
                     (ngSubmit)="f.form.valid && onSubmit()">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Password"
+                        <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Hasło"
                             [(ngModel)]="form.formPassword" required minlength="6" #password="ngModel"
                         />
                         <div role="alert" *ngIf="password.errors && f.submitted" style="color: red;">

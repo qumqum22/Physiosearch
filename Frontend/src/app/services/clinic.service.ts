@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Clinic } from '../models/clinic';
 
@@ -18,14 +17,10 @@ export class ClinicService {
 
   getClinic(clinicId: number):Observable<Clinic> {
         
-    return this.http.get<Clinic>(`${this.apiServerUrl}/clinic/${clinicId}`).pipe(
-        tap(console.log)
-    );
+    return this.http.get<Clinic>(`${this.apiServerUrl}/clinic/${clinicId}`);
 }
   getClinics(userId: number):Observable<Clinic[]> {
-    return this.http.get<Clinic[]>(`${this.apiServerUrl}/clinics/${userId}`).pipe(
-      tap(console.log)
-  );
+    return this.http.get<Clinic[]>(`${this.apiServerUrl}/clinics/${userId}`);
   }
 
   deleteClinic(clinicId: number, userId:number): Observable<void> {

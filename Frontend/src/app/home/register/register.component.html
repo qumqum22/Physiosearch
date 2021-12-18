@@ -1,154 +1,157 @@
 <div class="loginpage default-background">
-    <div class="login-container row justify-content-around">
+    <div class="default-form-1 row justify-content-around">
         <div class="login col-10">   
             <form class="register-form col-12" *ngIf="!isLoggedIn" name="userForm" #f="ngForm" novalidate
                 (ngSubmit)="f.form.valid && registerUser()">
                 <div class="form-group" style="margin-top: 2vh">
                     <div class="col-2"></div>
-                    <h4 class="col-8 row justify-content-around">Register User account</h4> 
+                    <h4 class="col-8 row justify-content-around">Utwórz konto użytkownika</h4> 
                     <div class="col-2"></div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control col-6 row justify-content-around" name="email" placeholder="Email"
-                        [(ngModel)]="userForm.Email" required #email="ngModel" email
-                    />
+                        [(ngModel)]="userForm.Email" required #email="ngModel" email />
                     <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
-                        <div *ngIf="email.errors.email">Wrong format of email</div>
-                        
+                        <div *ngIf="email.errors.email">Zły format emaila</div>
+                        <div *ngIf="email.errors.required">Email jest wymagany</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Password"
+                    <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Hasło"
                         [(ngModel)]="userForm.Password" required minlength="6" #password="ngModel"
                     />
                     <div  role="alert" *ngIf="password.errors && f.submitted" style="color: red;">
-                        <div *ngIf="password.errors.required">Password is required</div>
-                        <div *ngIf="password.errors.minlength">
-                            Password must be at least 6 characters
-                        </div>
+                        <div *ngIf="password.errors.required">Hasło jest wymagane</div>
+                        <div *ngIf="password.errors.minlength">Minimalna długość hasła to 6 znaków!</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control col-6 row justify-content-around" name="confirmPassword" placeholder="Confirm password"
+                    <input type="password" class="form-control col-6 row justify-content-around" name="confirmPassword" placeholder="Powtórz hasło"
                         [(ngModel)]="userForm.ConfirmPassword" required minlength="6" #confirmPassword="ngModel"
                     />
                     <div  role="alert" *ngIf="confirmPassword != password && f.submitted" style="color: red;">
-                        <div *ngIf="userForm.ConfirmPassword != userForm.Password">Password is different (need fix)</div>
+                        <div *ngIf="userForm.ConfirmPassword != userForm.Password">Wpisane hasło jest różne</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control col-6 row justify-content-around" name="name" placeholder="Name"
+                    <input type="text" class="form-control col-6 row justify-content-around" name="name" placeholder="Imie"
                         [(ngModel)]="userForm.Name" required minlength="3" #name="ngModel"
                     />
                     <div role="alert" *ngIf="name.errors && f.submitted" style="color: red;">
-                        Name is required!
+                        
+                        <div *ngIf="name.errors.required">Imie jest wymagane</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control col-6 row justify-content-around" name="surname" placeholder="Surname"
+                    <input type="text" class="form-control col-6 row justify-content-around" name="surname" placeholder="Nazwisko"
                         [(ngModel)]="userForm.Surname" required minlength="3" #surname="ngModel"
                     />
                     <div role="alert" *ngIf="surname.errors && f.submitted" style="color: red;">
-                        Surname is required!
+                        Nazwisko jest wymagane
                     </div>
                 </div>
-
+                <div role="alert" *ngIf="f.errors && f.submitted" style="color: red;">
+                    <div> Uzupełnij wszystkie pola </div>
+                </div>
                 <div class="buttons">
                     <div class="form-group">
                         <button type="button" routerLink="/login" class="btn btn-primary btn-block">
-                            Sign in
+                            Zaloguj się
                         </button>
                     </div>
                     <div class="col-1"></div>
                     <div class="form-group">
                         <button  type="submit" class="btn btn-primary btn-block">
-                            Register
+                            Zarejestruj się
                         </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="login-container">
+    <div class="default-form-1">
         <div class="login col-10">   
             <form class="register-form col-12" *ngIf="!isLoggedIn" name="physioForm" #f="ngForm" novalidate
                 (ngSubmit)="f.form.valid && registerUser()">
                 <div class="form-group" style="margin-top: 2vh">
                     <div class="col-2"></div>
-                    <h4 class="col-8 row justify-content-around">Register Physiotherapist account</h4> 
+                    <h4 class="col-8 row justify-content-around">Utwórz konto fizjoterapeuty</h4> 
                     <div class="col-2"></div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control col-6 row justify-content-around" name="email" placeholder="Email"
-                        [(ngModel)]="physioForm.Email" required #email="ngModel"/>
+                        [(ngModel)]="physioForm.Email" required #email="ngModel" email/>
                     <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
-                        Email is required!
+                        <div *ngIf="email.errors.email">Zły format emaila</div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Password"
+                    <input type="password" class="form-control col-6 row justify-content-around" name="password" placeholder="Hasło"
                         [(ngModel)]="physioForm.Password" required minlength="6" #password="ngModel"
                     />
                     <div role="alert" *ngIf="password.errors && f.submitted"  style="color: red;">
-                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.required">Hasło jest wymagane</div>
                         <div *ngIf="password.errors.minlength">
-                            Password must be at least 6 characters
+                            Minimalna długość hasła to 6 znaków!
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control col-6 row justify-content-around" name="confirmPassword" placeholder="Confirm password"
+                    <input type="password" class="form-control col-6 row justify-content-around" name="confirmPassword" placeholder="Powtórz hasło"
                         [(ngModel)]="physioForm.ConfirmPassword" required minlength="6" #confirmPassword="ngModel"
                     />
                     <div role="alert" *ngIf="confirmPassword.errors && f.submitted" style="color: red;">
-                        <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+                        <div *ngIf="confirmPassword.errors.required">Wymagane jest powtórzenie hasła</div>
                         <div *ngIf="confirmPassword.errors.minlength">
-                            Password must be at least 6 characters
+                            Minimalna długość hasła to 6 znaków!
                         </div>
+                    </div>
+                    <div  role="alert" *ngIf="confirmPassword != password && f.submitted" style="color: red;">
+                        <div *ngIf="physioForm.ConfirmPassword != physioForm.Password">Wpisane hasło jest różne</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control col-6 row justify-content-around" name="PhysioID" placeholder="Physiotherapist ID"
+                    <input type="text" class="form-control col-6 row justify-content-around" name="PhysioID" placeholder="ID rehabilitanta"
                         [(ngModel)]="physioForm.PhysioID" required minlength="4" #PhysioID="ngModel"
                     />
                     <div role="alert" *ngIf="PhysioID.errors && f.submitted" style="color: red;">
-                        Physiotherapist ID is required!
+                        ID rehabilitanta jest wymagane!
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control col-6 row justify-content-around" name="name" placeholder="Name"
+                    <input type="text" class="form-control col-6 row justify-content-around" name="name" placeholder="Imie"
                         [(ngModel)]="physioForm.Name" required minlength="3" #name="ngModel"
                     />
                     <div role="alert" *ngIf="name.errors && f.submitted" style="color: red;">
-                        Name is required!
+                        Imie jest wymagane!
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="text" class="form-control col-6 row justify-content-around" name="surname" placeholder="Surname"
+                    <input type="text" class="form-control col-6 row justify-content-around" name="surname" placeholder="Nazwisko"
                         [(ngModel)]="physioForm.Surname" required minlength="3" #surname="ngModel"
                     />
                     <div role="alert" *ngIf="surname.errors && f.submitted">
-                        Surname is required!
+                        Nazwisko jest wymagane!
                     </div>
                 </div>
 
                 <div class="buttons">
                     <div class="form-group">
                         <button type="button" routerLink="/login" class="btn btn-primary btn-block">
-                            Sign in
+                            Zaloguj się
                         </button>
                     </div>
                     <div class="col-1"></div>
                     <div class="form-group">
-                        <button  (click)="registerPhysio()" class="btn btn-primary btn-block">
-                            Register
+                        <button  type="submit" (click)="registerPhysio()" class="btn btn-primary btn-block">
+                            Zarejestruj się
                         </button>
                     </div>
                 </div>

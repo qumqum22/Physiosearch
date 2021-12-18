@@ -9,7 +9,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { StartComponent } from './start/start.component';
 import { SearchComponent } from './search/search.component';
 import { ConversationComponent } from './conversation/conversation.component';
-// import {ErrorComponent} from './error/error.component';
 import {NotfoundComponent} from './notfound/notfound.component';
 
 export const routes: Routes = [
@@ -22,6 +21,7 @@ export const routes: Routes = [
     { path: 'settings', component: SettingsComponent },
     { path: 'conversation', component: ConversationComponent },
     { path: 'search', component: SearchComponent },
+    { path: 'error/:errorType', component: NotfoundComponent },
     { path: '', component: StartComponent },
     { path: '**', component: NotfoundComponent}
     ]

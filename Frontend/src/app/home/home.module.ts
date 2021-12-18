@@ -17,10 +17,11 @@ import { SearchComponent } from './search/search.component';
 import { MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
+import { MatTableModule} from '@angular/material/table';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConversationComponent } from './conversation/conversation.component';
 import { ClinicComponent } from './clinic/clinic.component';
-import { ErrorComponent } from './error/error.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
@@ -35,7 +36,6 @@ import { NotfoundComponent } from './notfound/notfound.component';
     SearchComponent,
     ConversationComponent,
     ClinicComponent,
-    ErrorComponent,
     NotfoundComponent],
   imports: [ 
     CommonModule,
@@ -47,6 +47,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
     MatSelectModule,
     MatFormFieldModule, 
     MatInputModule,
+    MatTableModule,
   ],
 
   exports: [],

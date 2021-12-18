@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
   userData: User;
   
   userForm: any = {
-    Email: null,
+    Title: null,
     Password: null,
     ConfirmPassword: null,
     Name: null,

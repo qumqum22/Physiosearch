@@ -4,6 +4,7 @@ import { PhoneService } from 'src/app/services/phone.service';
 import { ClinicService } from 'src/app/services/clinic.service';
 import { User } from '../../models/user';
 import { Phone } from '../../models/phone';
+import { Comment } from '../../models/comment';
 import { AddPhoneRequest } from '../../models/addPhoneRequest'
 import { NgForm } from '@angular/forms';
 import { Clinic } from 'src/app/models/clinic';
@@ -11,6 +12,7 @@ import { UpdateUserRequest } from 'src/app/models/updateUserRequest';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { forkJoin } from 'rxjs';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,10 +21,10 @@ import { forkJoin } from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
 
-
   currentUser: any;
   profileUser: User;
   isSelfProfile = false;
+  averageRate = 0;
 
   phoneRequest: AddPhoneRequest = {
     id: 1,
@@ -36,8 +38,13 @@ export class ProfileComponent implements OnInit {
     description: ""
   }
 
+  displayedPhoneColumns: string[] = ['number'];
+  displayedClinicsColumns: string[] = ['navigation','name','address','postalCode','city'];
+
   phones: Phone[];
   clinics: Clinic[];
+  comments: Comment[];
+
   titleField: string = "";
   nameField: string = "";
   surnameField: string = "";
@@ -46,6 +53,7 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
     private phoneService: PhoneService,
     private clinicService: ClinicService,
+    private commentService: CommentService,
     private token: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -56,12 +64,33 @@ export class ProfileComponent implements OnInit {
       (response) => {
         this.profileUser = response;
         this.isSelfProfile = (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
-        forkJoin([this.phoneService.getPhones(this.profileUser?.id), this.clinicService.getClinics(this.profileUser?.id)]).subscribe(results => {
+        forkJoin([this.phoneService.getPhones(this.profileUser?.id), 
+          this.clinicService.getClinics(this.profileUser?.id),
+          this.commentService.getCommentsAboutUser(this.profileUser?.id)
+        ]).subscribe(results => {
           this.phones = results[0];
           this.clinics = results[1];
+          this.comments = results[2];
+          this.comments.forEach(element => {
+            element.isEdited = false;            
+          });
+          this.averageRate = this.calculateRate(this.comments);
         });
         this.getSignature();
-      })
+      },
+      (error) => {
+        this.router.navigate(["/error"], {queryParams: { errorType: 0}});
+      }
+      )
+  }
+
+  calculateRate(comments: Comment[])
+  {
+    var sum = 0;
+    comments.forEach(element => {
+      sum = sum + element.rate;
+    });
+    return (Math.round(sum /comments.length * 100) / 100);
   }
 
   getSignature() {
@@ -73,6 +102,20 @@ export class ProfileComponent implements OnInit {
 
   toTitleCase(name: string): string {
     return `${name[0].toUpperCase()}${name.substr(1).toLowerCase()}`;
+  }
+
+  editPost(post: Comment){
+    this.comments.forEach(comment => {
+      if(comment.id == post.id)
+      comment.isEdited = true;
+    });
+  }
+
+  updatePost(post: Comment){    
+    this.comments.forEach(comment => {
+    if(comment.id == post.id)
+    comment.isEdited = false;
+  });
   }
 
   updateUser(): void {

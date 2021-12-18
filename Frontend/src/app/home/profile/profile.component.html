@@ -1,56 +1,157 @@
-<div class="profile" *ngIf="profileUser">
-    <div class="user-info">
-        <div class="user-card col-4">
-            <img *ngIf="profileUser.profileImage" src="{{profileUser.profileImage}}" alt="" class="profile-img">
-            <img *ngIf="!profileUser.profileImage" src="../../../assets/images/default-profile.jpg" alt="..." class="profile-img">
-            <!-- Person name-->
-            <h4>{{profileUser?.title}} {{profileUser?.name}} {{profileUser?.surname}}</h4>
-            <input [readonly]="!this.isSelfProfile" [(ngModel)]="titleField">
-            <input [readonly]="!this.isSelfProfile" [(ngModel)]="nameField">
-            <input [readonly]="!this.isSelfProfile" [(ngModel)]="surnameField">
-            <button *ngIf="isSelfProfile" (click)="updateUser()" class="saveButton">save</button>               
+<div style="overflow-y:scroll; overflow-x:hidden; max-height: 100%;">
+    <div class="profile" *ngIf="profileUser">
+        <div class="user-info">
+            <div class="user-card col-4">
+                <img *ngIf="profileUser.profileImage" src="{{profileUser.profileImage}}" alt="" width="275"
+                    class="rounded-circle">
+                <img *ngIf="!profileUser.profileImage" src="../../../assets/images/default-profile.jpg" alt="..."
+                    width="275" class="rounded-circle">
+                <!-- Person name-->
+                <h4>{{profileUser?.title}} {{profileUser?.name}} {{profileUser?.surname}}</h4>
+                <input *ngIf="isSelfProfile" [(ngModel)]="titleField">
+                <input *ngIf="isSelfProfile" [(ngModel)]="nameField">
+                <input *ngIf="isSelfProfile" [(ngModel)]="surnameField">
+                <button *ngIf="isSelfProfile" (click)="updateUser()" class="btn btn-primary btn-sm">save</button>
+            </div>
+            <hr>
+            <div class="contact-types col-6">
+                <mat-tab-group dynamicHeight>
+                    <mat-tab label="O mnie">
+                        <div class="clinics">
+                            <P>Opis: </P>
+                            <input [readonly]="!this.isSelfProfile" [(ngModel)]="descriptionField">
+                            <button *ngIf="isSelfProfile" (click)="updateUser()"
+                                class="btn btn-primary btn-sm">save</button>
+                        </div>
+                    </mat-tab>
 
+                    <mat-tab label="Kontakt telefoniczny">
+                        <div class="phones">
+                            <table mat-table [dataSource]="phones" class="phone-table">
+
+                                <ng-container matColumnDef="number">
+                                    <th mat-header-cell *matHeaderCellDef> Numer </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}}
+                                        <button *ngIf="isSelfProfile" type="button"
+                                            class="btn btn-primary btn-sm">Edit</button>
+                                        <button *ngIf="isSelfProfile" type="button" class="btn btn-danger btn-sm"
+                                            (click)="deletePhone(element.id)">Delete</button>
+                                    </td>
+
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedPhoneColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedPhoneColumns;"></tr>
+                            </table>
+                            <form #addPhoneForm="ngForm" (ngSubmit)="addPhone(addPhoneForm)">
+                                <div class="addPhone">
+                                    <input *ngIf="isSelfProfile" ngModel name="phoneNumber" type="number"
+                                        placeholder="phone number" minlength="6" maxlength="12">
+                                    <button *ngIf="isSelfProfile" type="submit" name="add_phone"
+                                        class="btn btn-primary btn-sm">+</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </mat-tab>
+
+                    <mat-tab label="Przychodnie">
+                        <div class="clinics">
+                            <table mat-table [dataSource]="clinics" class="phone-table" style="width: 100%;">
+
+                                <ng-container matColumnDef="navigation">
+                                    <th mat-header-cell *matHeaderCellDef> Strona budynku </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}}
+                                        <button *ngIf="isSelfProfile" class="btn btn-danger btn-sm"
+                                        (click)="deleteClinic(element.id, profileUser.id)">X</button>
+                                    <button class="btn btn-primary btn-sm" (click)="toClinic(element.id)"> O budynku</button>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.name}}
+                                        <button *ngIf="isSelfProfile" type="button"
+                                            class="btn btn-primary btn-sm">Edit</button>
+                                        <button *ngIf="isSelfProfile" type="button" class="btn btn-danger btn-sm"
+                                            (click)="deletePhone(element.id)">Delete</button>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="address">
+                                    <th mat-header-cell *matHeaderCellDef> Adres </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.street}}
+                                        <button *ngIf="isSelfProfile" type="button"
+                                            class="btn btn-primary btn-sm">Edit</button>
+                                        <button *ngIf="isSelfProfile" type="button" class="btn btn-danger btn-sm"
+                                            (click)="deletePhone(element.id)">Delete</button>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="postalCode">
+                                    <th mat-header-cell *matHeaderCellDef> Kod pocztowy </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.postalCode}}
+                                        <button *ngIf="isSelfProfile" type="button"
+                                            class="btn btn-primary btn-sm">Edit</button>
+                                        <button *ngIf="isSelfProfile" type="button" class="btn btn-danger btn-sm"
+                                            (click)="deletePhone(element.id)">Delete</button>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="city">
+                                    <th mat-header-cell *matHeaderCellDef> Miasto </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.city}}
+                                        <button *ngIf="isSelfProfile" type="button"
+                                            class="btn btn-primary btn-sm">Edit</button>
+                                        <button *ngIf="isSelfProfile" type="button" class="btn btn-danger btn-sm"
+                                            (click)="deletePhone(element.id)">Delete</button>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedClinicsColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedClinicsColumns;"></tr>
+                            </table>
+                        </div>
+
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
         </div>
-        <hr>
-        <div class="contact-types col-8">
-        <mat-tab-group dynamicHeight>
-            <mat-tab label="About me">
-                <div class="clinics">
-                    <P>Description: </P>
-                    <input [readonly]="!this.isSelfProfile" [(ngModel)]="descriptionField">
-                    <button *ngIf="isSelfProfile" (click)="updateUser()" class="saveButton">save</button>
-                </div>
-            </mat-tab>
-
-            <mat-tab label="Phones">
-                <div class="phones">
-                    <p *ngFor="let phone of phones"> {{phone.phoneNumber}} 
-                        <button *ngIf="isSelfProfile" class="deleteButton" (click)="deletePhone(phone.id)">X</button>
-                    </p>
-                </div> 
-                <form #addPhoneForm="ngForm" (ngSubmit)="addPhone(addPhoneForm)" >
-                    <div class="addPhone">
-                        <input *ngIf="isSelfProfile" ngModel name="phoneNumber" type="number" placeholder="phone number" minlength="6" maxlength="12">
-                        <button *ngIf="isSelfProfile" type="submit" name="add_phone" class="addButton">+</button>
-                    </div>
-                </form>   
-            </mat-tab>
-
-            <mat-tab label="Clinics">
-                <div class="clinics">
-                    <p *ngFor="let clinic of clinics"> 
-                        {{clinic.city}}, ul.{{clinic.street}} {{clinic.number}}, ZIP: {{clinic.postalCode}}
-                        <button *ngIf="isSelfProfile" class="deleteButton" (click)="deleteClinic(clinic.id, profileUser.id)">X</button>
-                        <button class="deleteButton" (click)="toClinic(clinic.id)"> Visit clinic page</button>
-                    </p>
-                </div>
-
-            </mat-tab>
-        </mat-tab-group>
-        </div> 
     </div>
-    <div>
-        Opinie
+    <div class="row d-flex justify-content-center" style="margin-right:0;">
+        <div class="col-lg-6">
+            <div class="opinion">
+                <div class="opinion-body">
+                    <h4 class="opinion-title">Opinie</h4>
+                    <span>Średnia ocena {{averageRate}}/5</span>
+                </div>
+                <div class="comment-widgets">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row m-t-0" *ngFor="let comment of comments">
+                        <div class="p-2">
+                            <img *ngIf="!profileUser.profileImage"  src="../../../assets/images/default-profile.jpg" alt="user" width="50"
+                                class="rounded-circle">
+                            <img *ngIf="profileUser.profileImage"  src={{comment.profileImage}} alt="user" width="50"
+                                class="rounded-circle">
+                            </div>
+                        <div class="comment-text w-100">
+                            <div class="comment-footer">
+                                <h6 class="font-medium">{{comment.name}} {{comment.surname}}</h6>
+                                <span class="text-muted float-right">Ocena {{comment.rate}}/5</span>
+                            </div>
+                            <div *ngIf="!comment.isEdited">
+                                <span class="m-b-15 d-block">{{comment.comment}} </span>
+                                <div class="comment-footer"> <span class="text-muted float-right">{{comment.commentDate | date: 'dd/MM/yyyy'}}</span>
+                                    <button *ngIf="currentUser.userdataId == comment.authorId" type="button" (click)="editPost(comment)" class="btn btn-primary btn-sm">Edit</button>
+                                    <button *ngIf="currentUser.userdataId == comment.authorId" type="button" class="btn btn-danger btn-sm">Delete</button>
+                                </div>
+                            </div>
+                            <div *ngIf="comment.isEdited">
+                                <input [readonly]="!this.isSelfProfile" [(ngModel)]="comment.comment"  style='width:100%'>
+                                <div class="comment-footer"> <span class="text-muted float-right">{{comment.commentDate | date: 'dd/MM/yyyy'}}</span>
+                                    <button *ngIf="currentUser.userdataId == comment.authorId" type="button" (click)="updatePost(comment)" class="btn btn-primary btn-sm">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> <!-- Card -->
+            </div>
+        </div>
     </div>
 </div>
-

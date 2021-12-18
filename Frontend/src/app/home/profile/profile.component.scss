@@ -2,35 +2,44 @@
     margin:0;
     display:flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
 
     .user-info{
-        height: 70%;
+        height: 50vh;
         width: 100%;
         display:flex;
         flex-direction: row;
         
         .user-card{
             margin:auto;
-            margin-right:0em;
-            height: 90%;
-            width: 30vw;
+            margin-inline:1em;
+            width: 25vw;
+            height:45vh;
             min-width: 300px;
             text-align: center;
             
-            .profile-img{
-                display:block;
-                margin:auto;
-                margin-top: 1em;
-                max-width: 60%;
+            background: #FFFFFFBD 0% 0% no-repeat padding-box;
+            box-shadow: 0px 6px 6px #00000029;
+            border: 1px solid #707070;
+            border-radius: 45px;
+            opacity: 1;
+
+            img{
+                margin: 1em 0em;
             }
         }
 
         .contact-types{
-            margin-left:0%;
-            height: 90%;
-            width: 45%;
+            margin:auto;
+            width: 45vw;
+            height:45vh;
+
+            background: #FFFFFFBD 0% 0% no-repeat padding-box;
+            box-shadow: 0px 6px 6px #00000029;
+            border: 1px solid #707070;
+            border-radius: 45px;
+            opacity: 1;
+
             .clinics{
                 input{
                     text-align: justify;
@@ -41,30 +50,126 @@
                 margin:auto;
                 margin-top: 1em;
                 height: 20em;
-                //height: 45%;
                 width: 100%;
-
-                border-style:solid;
-                border-radius: 1em;
-
-                    padding-left:1em;
 
                 .phones{
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
                     overflow: auto;
-                    margin:auto;
-                    margin-top: 1em;
                     height: 20em;
-                    width: 100%;
+                    width: 50%;
                     p{
                         margin:0;
+                    }
+
+                    .addPhone .btn-primary {
+                        background-color: lime;
                     }
                }
             }
         }
     }
 }
+.phone-table{
+    margin: 2em 0;
+}
+
+mat-header-cell, mat-cell {
+    justify-content: center;
+  }
+
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+.opinion {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    
+    background: #FFFFFFBD 0% 0% no-repeat padding-box;
+    box-shadow: 0px 6px 6px #00000029;
+    border: 1px solid #707070;
+    border-radius: 45px;
+    opacity: 1;
+
+    .opinion-body {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        display:flex;
+        flex: 1 1 auto;
+        margin-top:0.5em;
+        padding: 0rem 2rem;
+        justify-content: space-between;
+        span{
+            display:flex;
+            align-items: center;
+        }
+    }
+
+    .opinion-title {
+        position: relative;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .comment-widgets {
+        position: relative;
+        margin-bottom: 10px;
+
+        .comment-row {
+            border-bottom: 1px solid transparent;
+            padding: 14px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            margin: 10px 0;
+
+            .comment-text {
+                padding-left: 15px;
+            }
 
 
+        }
 
+        .comment-row:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.p-2 {
+    padding: 0.5rem !important;
+}
+
+.m-b-15 {
+    margin-bottom: 15px;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76563rem;
+    line-height: 1.5;
+    border-radius: 1px;
+}
+
+.btn-cyan {
+    color: #fff;
+    background-color: #27a9e3;
+    border-color: #27a9e3;
+}
+
+.btn-cyan:hover {
+    color: #fff;
+    background-color: #1a93ca;
+    border-color: #198bbe;
+}
