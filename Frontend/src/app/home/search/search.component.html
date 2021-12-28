@@ -38,7 +38,7 @@
               <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
             </mat-select>
           </mat-form-field>
-
+          <button class="btn btn-primary" > Szukaj </button>
     </div>
 </div>
 
@@ -53,7 +53,7 @@
               </div>
               <div class="col-6 p-4">
                   <p> Średnia ocena: 0.0 / 5.0 </p>
-                  <h5>{{user.description}}</h5>
+                  <!-- <h5>{{user.description}}</h5> -->
                   <h5>Specjalizacja: Schorzenia kręgosłupa </h5>
                   <button class="btn btn-primary" (click)="toProfile(user)"> Przejdź do profilu </button>
               </div>

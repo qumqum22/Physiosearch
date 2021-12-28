@@ -18,11 +18,12 @@ export class SettingsComponent implements OnInit {
   userData: User;
   
   userForm: any = {
-    Title: null,
+    Email: null,
     Password: null,
     ConfirmPassword: null,
     Name: null,
-    Surname: null
+    Surname: null,
+    Date: null
   };
 
   physioForm: any = {

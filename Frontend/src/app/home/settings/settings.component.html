@@ -8,16 +8,16 @@
                         <h4 class="justify-content-around">Podstawowe informacje</h4> 
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="{{userData?.title}}"
+                        <input *ngIf="userData?.title" type="text" class="form-control" name="email" placeholder="{{userData?.title}}" 
                             [(ngModel)]="userForm.Email" required #email="ngModel" 
                         />
-                        <div role="alert" *ngIf="email.errors && f.submitted" style="color: red;">
-                            Email is required!
-                        </div>
+                        <input *ngIf="!userData?.title" type="text" class="form-control" name="email" placeholder="tytuł" 
+                            [(ngModel)]="userForm.Email" required #email="ngModel" 
+                        />
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="{{userData?.name}} "
+                        <input type="text" class="form-control" name="password" placeholder="{{userData?.name}}"
                             [(ngModel)]="userForm.Password" required minlength="6" #password="ngModel"
                         />
                         <div  role="alert" *ngIf="password.errors && f.submitted" style="color: red;">
@@ -38,11 +38,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Data urodzenia"
-                            [(ngModel)]="userForm.Name" required minlength="3" #name="ngModel"
+                        <input type="date" class="form-control" date="date" min="1920-01-01" max="2021-12-31"
+                            [(ngModel)]="userForm.Date" required minlength="3" #date="ngModel"
                         />
-                        <div role="alert" *ngIf="name.errors && f.submitted" style="color: red;">
-                            Name is required!
+                        <div role="alert" *ngIf="date.errors && f.submitted" style="color: red;">
+                            Date is required!
                         </div>
                     </div>
 

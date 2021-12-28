@@ -9,6 +9,9 @@
         <a href="/">
             <span> Mapa </span>
         </a>
+        <a href="/login" *ngIf="isAdmin" (click)="logout()">
+            <span>Data Collector</span>
+        </a>
         <a href="/search">
             <span> Wyszukaj </span>
         </a>
@@ -28,7 +31,8 @@
             <span> Rejestracja </span>
         </a>
         <a href="/login" *ngIf="isLoggedIn" (click)="logout()">
-            <span>Logout</span>
+            <span>Wyloguj się</span>
         </a>
+
     </div>
 </mat-toolbar>

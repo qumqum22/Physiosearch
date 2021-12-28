@@ -50,7 +50,7 @@
                 margin:auto;
                 margin-top: 1em;
                 height: 20em;
-                width: 100%;
+
 
                 .phones{
                     display: grid;
@@ -61,12 +61,9 @@
                     p{
                         margin:0;
                     }
-
-                    .addPhone .btn-primary {
-                        background-color: lime;
-                    }
                }
             }
+
         }
     }
 }

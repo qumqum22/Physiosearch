@@ -23,8 +23,16 @@ export class ProfileComponent implements OnInit {
 
   currentUser: any;
   profileUser: User;
-  isSelfProfile = false;
   averageRate = 0;
+  
+  isSelfProfile = false;
+  isUserEdited = false;
+  isDescriptionEdited = false;
+  isPhoneEdited = false;
+  isClinicAdding = false;
+  isNormalUser = false;
+  isRehabilitant = false;
+  isAdmin = false;
 
   phoneRequest: AddPhoneRequest = {
     id: 1,
@@ -44,7 +52,7 @@ export class ProfileComponent implements OnInit {
   phones: Phone[];
   clinics: Clinic[];
   comments: Comment[];
-
+  external: String[] = ['www', 'facebook', 'youtube'];
   titleField: string = "";
   nameField: string = "";
   surnameField: string = "";
@@ -60,6 +68,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
+    if(this.currentUser.roles)
+    {
+      if (this.currentUser.roles.indexOf('PHYSIO') > -1) this.isRehabilitant = true;
+      if (this.currentUser.roles.indexOf('USER') > -1) this.isNormalUser = true;
+      if (this.currentUser.roles.indexOf('ADMIN') > -1) this.isAdmin = true;
+    }
+    
     this.userService.getUser(this.route.snapshot.params.id).subscribe(
       (response) => {
         this.profileUser = response;
@@ -71,6 +86,10 @@ export class ProfileComponent implements OnInit {
           this.phones = results[0];
           this.clinics = results[1];
           this.comments = results[2];
+          
+          this.phones.forEach(phone => {
+            phone.isEdited = false;            
+          });
           this.comments.forEach(element => {
             element.isEdited = false;            
           });
@@ -111,14 +130,28 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updatePost(post: Comment){    
+  updatePost(post: Comment): void{    
+    // service and update add
     this.comments.forEach(comment => {
     if(comment.id == post.id)
     comment.isEdited = false;
   });
   }
 
+  declineUpdatePost(post: Comment):void {
+    this.comments.forEach(comment => {
+      if(comment.id == post.id)
+      comment.isEdited = false;
+    });
+  }
+
+  editUser() :void
+  {
+    this.isUserEdited = true;
+  }
+
   updateUser(): void {
+    this.isUserEdited = false;
     this.updateUserRequest.title = this.titleField;
     if (this.nameField != "")
       this.updateUserRequest.name = this.toTitleCase(this.nameField);
@@ -134,16 +167,66 @@ export class ProfileComponent implements OnInit {
       })
   }
 
+  declineUpdateUser():void {
+    this.isUserEdited = false;
+  }
+
+  editUserDescription():void{
+    this.isDescriptionEdited = true;
+  }
+  updateUserDescription(): void {
+    
+  }
+  declineUpdateUserDescription(): void {
+    this.isDescriptionEdited = false;
+  }
+
+  editUserPhone(phoneId: number):void{
+    this.phones.forEach(phone => {
+    if(phone.id == phoneId)
+    phone.isEdited = true;
+  });
+  }
+  updateUserPhone(phoneId: number): void {
+    // TODO update phone
+    this.phones.forEach(phone => {
+      if(phone.id == phoneId)
+      phone.isEdited = false;
+    });
+  }
+  declineUpdateUserPhone(phoneId: number): void {
+    this.phones.forEach(phone => {
+      if(phone.id == phoneId)
+      phone.isEdited = false;
+    });
+  }
+
+  addClinic():void {
+    this.isClinicAdding = true;
+  }
+
+  saveClinic():void{
+    // TODO save clinic
+    this.getClinics(this.profileUser.id);
+    this.isClinicAdding = false;
+  }
+  declineAddClinic():void{
+    this.isClinicAdding = false;
+  }
 
   deletePhone(phoneId: number): void {
     this.phoneService.deletePhone(phoneId).subscribe(
       (response) => this.getPhones(this.profileUser.id))
+      
   }
 
   getPhones(userId: number): void {
     this.phoneService.getPhones(userId).subscribe(
       (response) => this.phones = response)
-  }
+    this.phones.forEach(phone => {
+      phone.isEdited = false;
+    }); 
+    }
 
   addPhone(addPhoneForm: NgForm): void {
     this.phoneRequest.id = this.profileUser.id;
@@ -166,4 +249,13 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/clinic',clinicId]);
   }
 
+  checkIfUser(): boolean {
+    return this.isNormalUser;
+  }
+  checkIfPhysio(): boolean {
+    return this.isRehabilitant;
+  }
+  checkIfAdmin(): boolean {
+    return this.isAdmin;
+  }
 }

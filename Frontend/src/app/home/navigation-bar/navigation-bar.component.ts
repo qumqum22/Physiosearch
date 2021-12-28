@@ -10,6 +10,10 @@ export class NavigationBarComponent implements OnInit {
 
   private roles: string[] = [];
   isLoggedIn = false;
+  isRehabilitant = false;
+  isNormalUser = false;
+  isAdmin = false;
+
   showUserBoard = false;
   showPhysioBoard = false;
   showModeratorBoard = false;
@@ -24,10 +28,9 @@ export class NavigationBarComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.userId = user.userdataId;
-      this.showUserBoard = this.roles.includes('USER');
-      this.showPhysioBoard = this.roles.includes('PHYSIO');
-      this.showModeratorBoard = this.roles.includes('MODERATOR');
-      this.showAdminBoard = this.roles.includes('ADMIN');
+      this.isNormalUser = this.roles.includes('USER');
+      this.isRehabilitant = this.roles.includes('PHYSIO');
+      this.isAdmin = this.roles.includes('ADMIN');
 
       this.username = user.username;
     }
