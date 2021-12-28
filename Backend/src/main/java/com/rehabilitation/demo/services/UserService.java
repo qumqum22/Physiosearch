@@ -48,7 +48,8 @@ public class UserService {
                 null,
                 null,
                 "Default description",
-                registerUserAccountRequest.getPhysioId());
+                registerUserAccountRequest.getPhysioId(),
+                false);
 
         UserAccount userAccount = new UserAccount(
                 registerUserAccountRequest.getEmail(),

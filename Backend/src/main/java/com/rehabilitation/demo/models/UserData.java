@@ -1,6 +1,5 @@
 package com.rehabilitation.demo.models;
 import com.fasterxml.jackson.annotation.*;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -21,9 +20,12 @@ public class UserData {
     private Date birthday;
     @Value(value = "${profileImage:https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg}")
     private String profileImage;
+    @Column(length = 2047)
     private String description;
     @Value(value = "0")
     private String physioID; // unique, ale gdy nie istnieje?
+    @Value(value = "false")
+    private Boolean trusted;
 
     @OneToOne(mappedBy = "userdata",cascade=CascadeType.ALL)
     private UserAccount userAccount;
@@ -87,7 +89,7 @@ public class UserData {
     }
 
     public UserData(String title, String name, String surname, String gender, Date birthday,
-                    String profileImage, String description, String physioID) {
+                    String profileImage, String description, String physioID, Boolean trusted) {
         this.title = title;
         this.name = name;
         this.surname = surname;
@@ -96,6 +98,7 @@ public class UserData {
         this.profileImage = profileImage;
         this.description = description;
         this.physioID = physioID;
+        this.trusted = trusted;
     }
 
     public void removeClinic(Clinic clinicToRemove){
@@ -173,6 +176,14 @@ public class UserData {
 
     public void setPhysioID(String physioID) {
         this.physioID = physioID;
+    }
+
+    public Boolean getTrusted() {
+        return trusted;
+    }
+
+    public void setTrusted(Boolean trusted) {
+        this.trusted = trusted;
     }
 
     public UserAccount getUserAccount() {

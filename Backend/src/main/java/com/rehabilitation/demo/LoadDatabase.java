@@ -21,9 +21,9 @@ public class LoadDatabase {
         return args-> {
             saveRights(userRightsRepository);
 
-            UserData userData1 = new UserData("inż.", "Piotr", "Pierwszy","Male", null, null, "Moj krotki opis",null);
-            UserData userData2 = new UserData("inż.", "Agnieszka", "Druga","Female", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null);
-            UserData userData3 = new UserData("dr", "Michał", "Byczek","Male", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null);
+            UserData userData1 = new UserData("inż.", "Piotr", "Pierwszy","Male", null, null, "Moj krotki opis",null, false);
+            UserData userData2 = new UserData("inż.", "Agnieszka", "Druga","Female", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null, false);
+            UserData userData3 = new UserData("dr", "Michał", "Byczek","Male", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null, false);
 //            UserData userData4 = new UserData("mgr inż.", "Marian", "Doniczka","Male", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null);
 //            UserData userData5 = new UserData("dr", "Krystyna", "Pewniak","Female", null, "https://cdn.wallpapersafari.com/95/5/3rRDsg.jpg", "Witam w moim profilu",null);
 //            UserData userData6 = new UserData("inż.", "Jan", "Jeste","Male", null, null, "Witam w moim profilu",null);
