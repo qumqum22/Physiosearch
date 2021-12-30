@@ -29,7 +29,8 @@ public class UserService {
     }
 
     public List<UserData> getUsersByClinic(Clinic clinic) {
-        return userDataRepository.findAllByClinics(clinic);}
+        return userDataRepository.findAllByClinics(clinic);
+    }
 
     public UserData getSingleUser(long id) {
         return userDataRepository.findById(id)
@@ -58,7 +59,7 @@ public class UserService {
 
         UserRights userUser = userRightsRepository.findByAccessRights("USER");
         newUserData.getRights().add(userUser);
-        if (isPhysio){
+        if (isPhysio) {
             UserRights userPhysio = userRightsRepository.findByAccessRights("PHYSIO");
             newUserData.getRights().add(userPhysio);
         }
@@ -78,12 +79,11 @@ public class UserService {
         // updatedUser.setAge(oldUserData.getAge());
         //updatedUser.setGender(oldUserData.getGender());
         userDataRepository.save(updatedUser);
-    return true;
+        return true;
     }
 
     public void deleteUser(long id) {
         userDataRepository.deleteById(id);
     }
-
 
 }

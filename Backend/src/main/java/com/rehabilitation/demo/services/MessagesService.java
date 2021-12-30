@@ -1,6 +1,7 @@
 package com.rehabilitation.demo.services;
 
 import com.rehabilitation.demo.models.Comments;
+import com.rehabilitation.demo.models.Phones;
 import com.rehabilitation.demo.models.UserData;
 import com.rehabilitation.demo.payload.CommentPostRequest;
 import com.rehabilitation.demo.repository.CommentsRepository;
@@ -18,6 +19,10 @@ public class MessagesService {
 
     private final UserDataRepository userDataRepository;
     private final CommentsRepository commentsRepository;
+
+    public void addPost(Comments comment) {
+        commentsRepository.save(comment);
+    }
 
     public List<CommentPostRequest> getCommentsAboutByAssigned(UserData userdata) {
         List<CommentPostRequest> resultList = new ArrayList<>(Collections.emptyList());
