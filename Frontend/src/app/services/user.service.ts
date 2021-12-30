@@ -36,6 +36,11 @@ export class UserService {
         return this.http.get<User[]>(`${this.apiServerUrl}/users`);
     }
     
+    // public getUsersBySearchTerm():Observable<User[]> {
+        
+    //     return this.http.get<User[]>(`${this.apiServerUrl}/users`);
+    // }
+
     public getUser(id: number):Observable<User> {
         
         return this.http.get<User>(`${this.apiServerUrl}/users/${id}`);

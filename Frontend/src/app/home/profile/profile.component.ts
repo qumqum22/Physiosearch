@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { forkJoin } from 'rxjs';
 import { CommentService } from 'src/app/services/comment.service';
+import { AddPostRequest } from 'src/app/models/addPostRequest';
 
 @Component({
   selector: 'app-profile',
@@ -33,6 +34,19 @@ export class ProfileComponent implements OnInit {
   isNormalUser = false;
   isRehabilitant = false;
   isAdmin = false;
+  invalidRoleChange = false;
+
+  isProfileNormalUser = false;
+  isProfileRehabilitant = false;
+  isProfileAdmin = false;
+
+  postRequest: AddPostRequest = {
+    comment: "",
+    commentDate: new Date(),
+    rate: 5,
+    assignedId: 1, //this.profileUser.id,
+    authorId: 1 //this.currentUserData?.id
+  }
 
   phoneRequest: AddPhoneRequest = {
     id: 1,
@@ -52,11 +66,17 @@ export class ProfileComponent implements OnInit {
   phones: Phone[];
   clinics: Clinic[];
   comments: Comment[];
+  numberOfComments:number = 0;
   external: String[] = ['www', 'facebook', 'youtube'];
   titleField: string = "";
   nameField: string = "";
   surnameField: string = "";
   descriptionField: string = "";
+
+  newComment: string;
+  currentUserData: User;
+  ratings: string[] = ["1", "2", "3", "4", "5"];
+  selectedRate: string = "";
 
   constructor(private userService: UserService,
     private phoneService: PhoneService,
@@ -68,6 +88,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
+    console.log(this.currentUser);
     if(this.currentUser.roles)
     {
       if (this.currentUser.roles.indexOf('PHYSIO') > -1) this.isRehabilitant = true;
@@ -81,12 +102,16 @@ export class ProfileComponent implements OnInit {
         this.isSelfProfile = (this.profileUser?.id == this.currentUser.userdataId) ? true : false;
         forkJoin([this.phoneService.getPhones(this.profileUser?.id), 
           this.clinicService.getClinics(this.profileUser?.id),
-          this.commentService.getCommentsAboutUser(this.profileUser?.id)
+          this.commentService.getCommentsAboutUser(this.profileUser?.id),
+          this.userService.getUser(this.currentUser.userdataId)
         ]).subscribe(results => {
           this.phones = results[0];
           this.clinics = results[1];
           this.comments = results[2];
-          
+          this.comments = this.sortCommentsByDate(this.comments);
+          this.numberOfComments = this.comments.length;
+          this.currentUserData = results[3];
+          console.log(this.currentUserData);
           this.phones.forEach(phone => {
             phone.isEdited = false;            
           });
@@ -103,13 +128,17 @@ export class ProfileComponent implements OnInit {
       )
   }
 
+  sortCommentsByDate(comments: Comment[]) {
+    comments.sort((a, b) => (a.commentDate < b.commentDate) ? 1: -1);
+    return comments;
+  }
   calculateRate(comments: Comment[])
   {
     var sum = 0;
     comments.forEach(element => {
       sum = sum + element.rate;
     });
-    return (Math.round(sum /comments.length * 100) / 100);
+    return (comments.length) ? (Math.round(sum /comments.length * 100) / 100) : 0;
   }
 
   getSignature() {
@@ -121,6 +150,18 @@ export class ProfileComponent implements OnInit {
 
   toTitleCase(name: string): string {
     return `${name[0].toUpperCase()}${name.substr(1).toLowerCase()}`;
+  }
+
+  addPost(): void {
+    this.postRequest.comment = this.newComment;
+    this.postRequest.rate = 5;
+    this.postRequest.assignedId = this.currentUserData.id;
+    this.postRequest.authorId = this.profileUser.id;
+    this.commentService.addPost(this.postRequest).subscribe(
+      () => this.commentService.getCommentsAboutUser(this.profileUser?.id).subscribe((data) => {
+        this.comments = data;
+      })
+    );
   }
 
   editPost(post: Comment){
@@ -257,5 +298,9 @@ export class ProfileComponent implements OnInit {
   }
   checkIfAdmin(): boolean {
     return this.isAdmin;
+  }
+  updateUserRoles(): void {
+    this.invalidRoleChange = true;
+    return;
   }
 }

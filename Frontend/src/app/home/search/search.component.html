@@ -1,5 +1,5 @@
-<div class ="searchbar">
-    <div>
+<div class ="searchbar d-flex flex-column">
+    <div class = "d-flex justify-content-center">
         <mat-form-field appearance="fill">
             <mat-label>Rodzaj rehabilitacji</mat-label>
             <mat-select [formControl]="physioType" multiple>
@@ -38,11 +38,14 @@
               <mat-option *ngFor="let title of titles" [value]="title">{{title}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <button class="btn btn-primary" > Szukaj </button>
+    </div>
+    <div class="d-flex justify-content-center">
+      <input type="text" placeholder="Wpisz imie i nazwisko" [(ngModel)]="searchingTerm" (change)="search()">
+      <button class="btn btn-primary" (click)="search()">Szukaj</button>
     </div>
 </div>
 
-<div style="overflow-y:scroll; overflow-x:hidden; max-height: 70vh; width: 50%; margin:auto; padding-right:1em;">
+<div style="overflow-y:scroll; overflow-x:hidden; max-height: 70vh; width: 50%; margin:auto; margin-top:2em; padding-right:1em;">
   <div *ngFor="let user of usersPage">
       <div class="card">
           <div class="row">
@@ -61,25 +64,25 @@
                   <h5>Godziny otwarcia:</h5>
                   <td>
                       <tr>
-                        <td colspan="2">Poniedziałek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                        <td colspan="2">pon. </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Wtorek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                          <td colspan="2">wt. </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Środa </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                          <td colspan="2">śr. </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Czwartek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                          <td colspan="2">czw. </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Piątek </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
+                          <td colspan="2">pt. </td> <td colspan="2">8:00</td><td colspan="1">-</td><td colspan="2">16:00</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Sobota </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                          <td colspan="2">sob. </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
                       </tr>
                       <tr>
-                          <td colspan="2">Niedziela </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
+                          <td colspan="2">niedz. </td> <td colspan="2">---</td><td colspan="1">-</td><td colspan="2">---</td>
                       </tr>
                   </td>
               </div>

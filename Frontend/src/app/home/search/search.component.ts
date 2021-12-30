@@ -3,7 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { RehabilitationService } from 'src/app/services/rehabilitation.service';
 import { User } from '../../models/user';
 import { Rehabilitation } from 'src/app/models/rehabilitation';
-import { Router} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { FormControl} from '@angular/forms';
 
 @Component({
@@ -17,6 +17,9 @@ export class SearchComponent implements OnInit {
   
   private readonly pageSize = 5;
   private users: User[] = [];
+  private tempUsers: User[] = [];
+
+  searchingTerm: String = "";
 
   usersPage: User[] = [];
   page = 1;
@@ -39,7 +42,8 @@ export class SearchComponent implements OnInit {
   
   constructor(private userService: UserService, 
     private rehabilitationService: RehabilitationService,
-     private router: Router) { }
+     private router: Router,
+     private route: ActivatedRoute) { }
 
   getUsers():void {
     this.userService.getUsers().subscribe(
@@ -50,16 +54,42 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.rehabilitationService.getRehabilitations().subscribe(
       data => {
-        this.rehabilitations = data
-        this.userService.getUsers().subscribe(
-          data => {
-            this.users = data;
-            this.maxPage = Math.floor(this.users.length / 5 + 1);
-            this.onPageChange();
-          }
-        )
+        this.rehabilitations = data;
+        this.route.params.subscribe(params => 
+          {
+            this.userService.getUsers().subscribe(
+              data => 
+              {
+                if(params.searchTerm)
+                { 
+                  data.forEach(element => {
+                    element.person = element.name + " " + element.surname;
+                  });
+                  console.log(params.searchTerm);
+                  this.users = data.filter(user => {
+                    return user.person.toLowerCase().includes(params.searchTerm.toLowerCase());
+                  })
+                  this.maxPage = Math.floor(this.users.length / 5 + 1);
+                  this.onPageChange();
+                }
+                else
+                {
+                  this.userService.getUsers().subscribe(
+                    data => {
+                      this.users = data;
+                      this.maxPage = Math.floor(this.users.length / 5 + 1);
+                      this.onPageChange();
+                  })
+                }
+              })
+          })
       }
     )
+  }
+
+  search():void{
+    if(this.searchingTerm)
+    this.router.navigateByUrl('/search/' + this.searchingTerm);
   }
 
   toProfile(user: User):void{

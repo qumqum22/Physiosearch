@@ -23,16 +23,16 @@ export class NotfoundComponent implements OnInit {
     {
       case ErrorType.WrongProfile:
 
-        return "Invalid profile id";
+        return "Taka strona nie istnieje. Sprawdź poprawność wpisanego linku.";
       case ErrorType.ServerNoResponse:
 
-        return "Server is down";
+        return "Serwer nie odpowiada. Odczekaj kilka chwil i spróbuj ponownie.";
 
       case ErrorType.WrongRights:
-        return "You have no rights to do it";
+        return "Nie masz odpowiednich uprawnień. Jeżeli uważasz, że jest to pomyłka, skontaktuj się z administracją.";
 
       default:
-        return "Something went wrong";
+        return "Wystąpił błąd.";
     }
   }
 

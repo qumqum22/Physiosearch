@@ -8,4 +8,5 @@ export interface User {
     profileImage: "assets/images/default-profile.jpg";
     description:string;
     physioID: string;
+    person: string;
 }

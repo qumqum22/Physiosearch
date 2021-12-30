@@ -21,7 +21,7 @@
         <a routerLink="/profile/{{this.userId}}" *ngIf="isLoggedIn">
             <span> Profil </span>
         </a>
-        <a href="/conversation">
+        <a href="/conversation" *ngIf="isLoggedIn">
             <span> Wiadomości </span>
         </a>
         <a href="/login"  *ngIf="!isLoggedIn">

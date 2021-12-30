@@ -54,7 +54,6 @@
 
                 .phones{
                     display: grid;
-                    grid-template-columns: repeat(3, 1fr);
                     overflow: auto;
                     height: 20em;
                     width: 50%;
@@ -63,7 +62,12 @@
                     }
                }
             }
-
+            .slides{
+                display:flex;
+                flex-direction: column;
+                margin-left: 1em;
+                margin-top: 1em;
+            }
         }
     }
 }
@@ -76,6 +80,16 @@ mat-header-cell, mat-cell {
   }
 
 @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+.rate{
+    display: flex;
+    align-items: right;
+    justify-content: right;
+
+    i {
+        margin-right: 1em;
+    }
+}
 
 .opinion {
     position: relative;

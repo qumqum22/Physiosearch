@@ -4,9 +4,9 @@
             <div class="user-card col-4">
                 <img *ngIf="profileUser.profileImage" src="{{profileUser.profileImage}}" alt="" width="275"
                     class="rounded-circle">
-                <img *ngIf="!profileUser.profileImage && profileUser.gender=='Male'" src="../../../assets/images/male.png" alt="..."
+                <img *ngIf="!profileUser.profileImage && profileUser.gender=='Male'" src="../../../assets/images/default-profile.jpg" alt="..."
                     width="275" class="rounded-circle">
-                <img *ngIf="!profileUser.profileImage && profileUser.gender=='Female'" src="../../../assets/images/female.png" alt="..."
+                <img *ngIf="!profileUser.profileImage && profileUser.gender=='Female'" src="../../../assets/images/default-profile.jpg" alt="..."
                     width="275" class="rounded-circle">
                 <!-- Person name-->
                 <div *ngIf="!isUserEdited">
@@ -157,10 +157,21 @@
 
                     </mat-tab>
                     <mat-tab label="Uprawnienia" *ngIf="checkIfAdmin()">
-
+                        <div class="slides">
+                            <mat-slide-toggle color="primary" [(ngModel)]="isNormalUser" >Użytkownik</mat-slide-toggle>
+                            <mat-slide-toggle color="primary" [(ngModel)]="isRehabilitant">Fizjoterapeuta</mat-slide-toggle>
+                            <mat-slide-toggle color="primary" [(ngModel)]="isProfileNormalUser">Administrator</mat-slide-toggle>
+                            <div role="alert" *ngIf="invalidRoleChange" style="color: red;">
+                                <div>Użytkownik musi mieć podstawowe prawa</div>
+                            </div>
+                            <hr>
+                            <div class="buttons" styles="margin-top: 1em;">
+                            <button *ngIf="isAdmin" (click)="updateUserRoles()"
+                                    class="btn btn-primary btn-sm">Zapisz</button>
+                            </div>
+                        </div>
                     </mat-tab>
                     <mat-tab label="Zaufany" *ngIf="checkIfAdmin()">
-
                     </mat-tab>
                 </mat-tab-group>
             </div>
@@ -170,9 +181,42 @@
         <div class="col-lg-6">
             <div class="opinion">
                 <div class="opinion-body">
-                    <h4 class="opinion-title">Opinie</h4>
+                    <h4 class="opinion-title">Opinie ({{numberOfComments}})</h4>
                     <span>Średnia ocena {{averageRate}}/5</span>
                 </div>
+                <div class="comment-widgets">
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="p-2">
+                            <img *ngIf="!currentUser.profileImage"  src="../../../assets/images/default-profile.jpg" alt="user" width="50"
+                                class="rounded-circle">
+                            <img *ngIf="currentUser.profileImage"  src={{currentUserData?.profileImage}} alt="user" width="50"
+                                class="rounded-circle">
+                        </div>
+                        <div class="comment-text w-100">
+                            <div class="comment-footer">
+                                <div class="rate">
+                                    <h6 class="font-medium mr-auto">{{currentUserData?.name}} {{currentUserData?.surname}}</h6>
+                                    <span *ngFor="let rate of ratings">
+                                        <input 
+                                        [ngModel]="selectedRate"
+                                        type="radio" 
+                                        name="rate" 
+                                        value="{{rate}}"> 
+                                        <i>{{rate}}  </i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <input [(ngModel)]="newComment"  style='width:100%; line-height: 50px'>
+                                <div class="comment-footer">
+                                    <button type="button" (click)="addPost()" class="btn btn-primary btn-sm">Dodaj</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    </div>
+                    <!-- End of comment Row -->
                 <div class="comment-widgets">
                     <!-- Comment Row -->
                     <div class="d-flex flex-row comment-row m-t-0" *ngFor="let comment of comments">
@@ -183,8 +227,8 @@
                                 class="rounded-circle">
                         </div>
                         <div class="comment-text w-100">
-                            <div class="comment-footer">
-                                <h6 class="font-medium">{{comment.name}} {{comment.surname}}</h6>
+                            <div class="comment-footer rate ">
+                                <h6 class="font-medium mr-auto">{{comment.name}} {{comment.surname}}</h6>
                                 <span class="text-muted float-right">Ocena {{comment.rate}}/5</span>
                             </div>
                             <div *ngIf="!comment.isEdited">
@@ -203,6 +247,7 @@
                             </div>
                         </div>
                     </div> 
+                    <!-- End of comment Row -->
                 </div> <!-- Card -->
             </div>
         </div>

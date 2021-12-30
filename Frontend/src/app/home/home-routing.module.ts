@@ -21,6 +21,7 @@ export const routes: Routes = [
     { path: 'settings', component: SettingsComponent },
     { path: 'conversation', component: ConversationComponent },
     { path: 'search', component: SearchComponent },
+    { path: 'search/:searchTerm', component: SearchComponent},
     { path: 'error/:errorType', component: NotfoundComponent },
     { path: '', component: StartComponent },
     { path: '**', component: NotfoundComponent}

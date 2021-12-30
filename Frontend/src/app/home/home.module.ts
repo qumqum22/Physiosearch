@@ -8,16 +8,17 @@ import {HomeComponent} from './home.component';
 import {HomeRoutingModule } from './home-routing.module';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StartComponent } from './start/start.component';
 import { SearchComponent } from './search/search.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule} from '@angular/material/input';
 import { MatTableModule} from '@angular/material/table';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConversationComponent } from './conversation/conversation.component';
@@ -48,6 +49,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
     MatFormFieldModule, 
     MatInputModule,
     MatTableModule,
+    MatSlideToggleModule,
   ],
 
   exports: [],
